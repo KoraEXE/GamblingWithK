@@ -131,7 +131,6 @@ public class VentanaLogin extends JFrame implements ActionListener{
 		if (e.getSource() == btnLogin) {
 
 		    String usuario = campoUsuario.getText();
-		    // Tomar la contraseña del campo que esté visible
 		    String password = campoContrasena.isVisible() ? campoContrasena.getText() : campoContrasenaVisible.getText();
 
 		    if (usuario.equals("") || password.equals("") || comboBox.getSelectedIndex() == 0) {
