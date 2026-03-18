@@ -17,6 +17,10 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
+
+import java.awt.Toolkit;
 
 public class VentanaLogin extends JFrame implements ActionListener{
 
@@ -24,13 +28,17 @@ public class VentanaLogin extends JFrame implements ActionListener{
 	private JPanel contentPane;
 	private JTextField campoUsuario;
 	private JPasswordField campoContrasena;
+	private JTextField campoContrasenaVisible;
 	private JButton btnLogin;
 	private JLabel lblNewLabel_1;
 	private LoginControlador cont;
+	private JComboBox comboBox;
+	private JCheckBox mostrarContrasena;
 
 	public VentanaLogin(LoginControlador controlador) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\1dami.TARTANGALH\\Desktop\\IMG Reto 3 eva Kasinoa\\R.png"));
 		this.cont=controlador;
-		setTitle("Principal");
+		setTitle("Register");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -49,7 +57,26 @@ public class VentanaLogin extends JFrame implements ActionListener{
 		campoContrasena.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		campoContrasena.setBounds(160, 127, 118, 19);
 		contentPane.add(campoContrasena);
+		//Hechar un vistazo e igual cambiarlo desde aqui hasta el siguiente comentario
+		campoContrasenaVisible = new JTextField();
+		campoContrasenaVisible.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		campoContrasenaVisible.setBounds(campoContrasena.getBounds());
+		campoContrasenaVisible.setVisible(false);
+		contentPane.add(campoContrasenaVisible);
 
+		mostrarContrasena = new JCheckBox("See Password");
+		mostrarContrasena.setHorizontalAlignment(SwingConstants.CENTER);
+		mostrarContrasena.setBounds(155, 152, 123, 15);
+		contentPane.add(mostrarContrasena);
+		mostrarContrasena.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean mostrar = mostrarContrasena.isSelected();
+				campoContrasenaVisible.setText(campoContrasena.getText());
+				campoContrasenaVisible.setVisible(mostrar);
+				campoContrasena.setVisible(!mostrar);
+			}
+		});
+		//fin del comentario anterior
 		btnLogin = new JButton("Login");
 		btnLogin.setBounds(160, 209, 85, 21);
 		contentPane.add(btnLogin);
@@ -75,30 +102,44 @@ public class VentanaLogin extends JFrame implements ActionListener{
 		lblNewLabel_2.setBounds(160, 25, 92, 19);
 		contentPane.add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_3 = new JLabel("Insertar Imagen");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setBounds(288, 63, 138, 148);
-		contentPane.add(lblNewLabel_3);
+		ImageIcon lblimagen = new ImageIcon("C:\\Users\\1dami.TARTANGALH\\Desktop\\IMG Reto 3 eva Kasinoa/G.jpg");
+		JLabel lblImagen = new JLabel(lblimagen);
+		lblImagen.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImagen.setBounds(288, 63, 138, 148);
+		contentPane.add(lblImagen);
 		
 		JLabel lblBalance = new JLabel("Balance:");
 		lblBalance.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblBalance.setBounds(57, 173, 97, 16);
 		contentPane.add(lblBalance);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"-- Select Import --", "100", "200", "300", "400", "500", "600", "700", "800", "900", "1000"}));
+		comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"-- Select Import --","100","200","300","400","500","600","700","800","900","1000"}));
+		comboBox.setSelectedIndex(0);
 		comboBox.setBounds(160, 173, 118, 20);
 		contentPane.add(comboBox);
-		
+		if (comboBox.getSelectedIndex() == 0) {
+		    lblNewLabel_1.setText("Selecciona un valor válido");
+		} else {
+		    lblNewLabel_1.setText("");
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		if (e.getSource()==btnLogin) {
-		
-			
+		if (e.getSource() == btnLogin) {
+
+		    String usuario = campoUsuario.getText();
+		    // Tomar la contraseña del campo que esté visible
+		    String password = campoContrasena.isVisible() ? campoContrasena.getText() : campoContrasenaVisible.getText();
+
+		    if (usuario.equals("") || password.equals("") || comboBox.getSelectedIndex() == 0) {
+		        lblNewLabel_1.setText("Rellena todos los campos");
+		    } else {
+		        lblNewLabel_1.setText("Datos correctos");
+		        // aquí llamar al controlador		    
+		    }
 		}
 	}
 }
