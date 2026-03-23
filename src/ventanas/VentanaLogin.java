@@ -57,7 +57,7 @@ public class VentanaLogin extends JDialog implements ActionListener{
 		campoContrasena.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		campoContrasena.setBounds(160, 127, 118, 19);
 		contentPane.add(campoContrasena);
-		//Hechar un vistazo e igual cambiarlo desde aqui hasta el siguiente comentario
+
 		campoContrasenaVisible = new JTextField();
 		campoContrasenaVisible.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		campoContrasenaVisible.setBounds(campoContrasena.getBounds());
@@ -68,15 +68,8 @@ public class VentanaLogin extends JDialog implements ActionListener{
 		mostrarContrasena.setHorizontalAlignment(SwingConstants.CENTER);
 		mostrarContrasena.setBounds(155, 152, 123, 15);
 		contentPane.add(mostrarContrasena);
-		mostrarContrasena.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				boolean mostrar = mostrarContrasena.isSelected();
-				campoContrasenaVisible.setText(campoContrasena.getText());
-				campoContrasenaVisible.setVisible(mostrar);
-				campoContrasena.setVisible(!mostrar);
-			}
-		});
-		//fin del comentario anterior
+		mostrarContrasena.addActionListener(this);
+
 		btnLogin = new JButton("Login");
 		btnLogin.setBounds(160, 209, 85, 21);
 		contentPane.add(btnLogin);
@@ -96,50 +89,58 @@ public class VentanaLogin extends JDialog implements ActionListener{
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(78, 240, 274, 23);
 		contentPane.add(lblNewLabel_1);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("Register");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2.setBounds(160, 25, 92, 19);
 		contentPane.add(lblNewLabel_2);
-		
+
 		ImageIcon lblimagen = new ImageIcon("C:\\Users\\1dami.TARTANGALH\\Desktop\\IMG Reto 3 eva Kasinoa/G.jpg");
 		JLabel lblImagen = new JLabel(lblimagen);
 		lblImagen.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImagen.setBounds(288, 63, 138, 148);
 		contentPane.add(lblImagen);
-		
+
 		JLabel lblBalance = new JLabel("Balance:");
 		lblBalance.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblBalance.setBounds(57, 173, 97, 16);
 		contentPane.add(lblBalance);
-		
+
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"-- Select Import --","100","200","300","400","500","600","700","800","900","1000"}));
 		comboBox.setSelectedIndex(0);
 		comboBox.setBounds(160, 173, 118, 20);
 		contentPane.add(comboBox);
 		if (comboBox.getSelectedIndex() == 0) {
-		    lblNewLabel_1.setText("Selecciona un valor válido");
+			lblNewLabel_1.setText("Selecciona un valor válido");
 		} else {
-		    lblNewLabel_1.setText("");
+			lblNewLabel_1.setText("");
 		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		if (e.getSource() == btnLogin) {
 
-		    String usuario = campoUsuario.getText();
-		    String password = campoContrasena.isVisible() ? campoContrasena.getText() : campoContrasenaVisible.getText();
+			String usuario = campoUsuario.getText();
+			String password = campoContrasena.isVisible() ? campoContrasena.getText() : campoContrasenaVisible.getText();
 
-		    if (usuario.equals("") || password.equals("") || comboBox.getSelectedIndex() == 0) {
-		        lblNewLabel_1.setText("Rellena todos los campos");
-		    } else {
-		        lblNewLabel_1.setText("Datos correctos");
-		        // aquí llamar al controlador		    
-		    }
+			if (usuario.equals("") || password.equals("") || comboBox.getSelectedIndex() == 0) {
+				lblNewLabel_1.setText("Rellena todos los campos");
+			} else {
+				lblNewLabel_1.setText("Datos correctos");
+				// aquí llamar al controlador		    
+			}
+		}
+		if (e.getSource() == mostrarContrasena) {
+			boolean mostrar = mostrarContrasena.isSelected();
+			campoContrasenaVisible.setText(campoContrasena.getText());
+			campoContrasenaVisible.setVisible(mostrar);
+			campoContrasena.setVisible(!mostrar);
+
 		}
 	}
 }
