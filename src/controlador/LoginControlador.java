@@ -2,13 +2,13 @@ package controlador;
 
 import modelo.ImplementacionBD;
 import modelo.UsuarioDAO;
-import ventanas.VentanaLogin;
+import ventanas.VentanaInicial;
 
 public class LoginControlador {
 	UsuarioDAO dao = new ImplementacionBD();
 
 	public void visualizarPantalla() {
-		VentanaLogin ven = new VentanaLogin(this); // cambiar VentanaLogin a la ventana inicial esto era una prueba
+		VentanaInicial ven = new VentanaInicial();
 		ven.setVisible(true);	
 	}
 }
