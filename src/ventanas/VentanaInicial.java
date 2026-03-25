@@ -140,7 +140,10 @@ public class VentanaInicial extends JFrame implements ActionListener{
 				lblNewLabel_4.setText("Rellena todos los campos");
 			} else {
 				lblNewLabel_4.setText("Datos correctos");
-				// aquí llamar al controlador		    
+				// aquí llamar al controlador
+				SelecionJuego v2=new SelecionJuego();
+				v2.setVisible(true);
+				this.dispose();
 			}
 		}
 	}

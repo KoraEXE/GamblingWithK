@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
+
 public class SelecionJuego extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
@@ -19,9 +20,6 @@ public class SelecionJuego extends JDialog implements ActionListener {
 	private JButton cerrarSesion;
 	private JButton borrar;
 	private JButton pray;
-
-
-
 
 	public SelecionJuego() {
 		setBounds(100, 100, 450, 300);
