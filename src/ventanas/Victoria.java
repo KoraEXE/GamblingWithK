@@ -24,7 +24,7 @@ public class Victoria extends JDialog implements ActionListener {
 
 
 	public Victoria() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\1dami\\Downloads\\miniIconoV2.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/miniIconoV2.png"));
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -32,28 +32,28 @@ public class Victoria extends JDialog implements ActionListener {
 		contentPanel.setLayout(null);
 
 		miniIcono = new JLabel("");
-		miniIcono.setIcon(new ImageIcon("C:\\Users\\1dami\\Downloads\\miniIconoV2.png"));
+		miniIcono.setIcon(new ImageIcon("imagenes/miniIconoV2.png"));
 		miniIcono.setBounds(384, 219, 52, 44);
 		contentPanel.add(miniIcono);
 
 		TextoGanado = new JLabel("");
-		TextoGanado.setIcon(new ImageIcon("C:\\Users\\1dami\\Downloads\\HasGanado (1).png"));
+		TextoGanado.setIcon(new ImageIcon("imagenes/HasGanado (1).png"));
 		TextoGanado.setBounds(0, 0, 221, 263);
 		contentPanel.add(TextoGanado);
 
 		SeguirJugando = new JButton("");
-		SeguirJugando.setIcon(new ImageIcon("C:\\Users\\1dami\\Downloads\\SeguirGanandoV2 (1).png"));
+		SeguirJugando.setIcon(new ImageIcon("imagenes/SeguirGanandoV2 (1).png"));
 		SeguirJugando.setBounds(231, 95, 188, 28);
 		contentPanel.add(SeguirJugando);
 		
 		PerderLaRacha = new JButton("");
-		PerderLaRacha.setIcon(new ImageIcon("C:\\Users\\1dami\\Downloads\\PerderRacha.png"));
+		PerderLaRacha.setIcon(new ImageIcon("imagenes/PerderRacha.png"));
 		PerderLaRacha.setBounds(231, 160, 188, 28);
 		contentPanel.add(PerderLaRacha);
 		this.PerderLaRacha.addActionListener(this);
 
 		Fondo = new JLabel("");
-		Fondo.setIcon(new ImageIcon("C:\\Users\\1dami\\Downloads\\FondoDeVictoria.png"));
+		Fondo.setIcon(new ImageIcon("imagenes/FondoDeVictoria.png"));
 		Fondo.setBounds(0, 0, 436, 263);
 		contentPanel.add(Fondo);
 

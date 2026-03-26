@@ -38,7 +38,7 @@ public class VentanaInicial extends JFrame implements ActionListener{
 
 	public VentanaInicial() {
 		setTitle("Ventana Inicial");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\1dami.TARTANGALH\\Desktop\\IMG Reto 3 eva Kasinoa\\Isr.jpg"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/Isr.jpg"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -64,7 +64,7 @@ public class VentanaInicial extends JFrame implements ActionListener{
 		btnRegister.setBounds(270, 145, 130, 32);
 		contentPane.add(btnRegister);
 
-		ImageIcon lblimagen = new ImageIcon("C:\\Users\\1dami.TARTANGALH\\Desktop\\IMG Reto 3 eva Kasinoa/D.jpg");
+		ImageIcon lblimagen = new ImageIcon("imagenes/D.jpg");
 		JLabel lblImagen = new JLabel(lblimagen);
 		lblImagen.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);

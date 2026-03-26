@@ -36,7 +36,7 @@ public class VentanaLogin extends JDialog implements ActionListener{
 	private JCheckBox mostrarContrasena;
 
 	public VentanaLogin(LoginControlador controlador) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\1dami.TARTANGALH\\Desktop\\IMG Reto 3 eva Kasinoa\\R.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/R.png"));
 		this.cont=controlador;
 		setTitle("Register");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);		
@@ -96,7 +96,7 @@ public class VentanaLogin extends JDialog implements ActionListener{
 		lblNewLabel_2.setBounds(160, 25, 92, 19);
 		contentPane.add(lblNewLabel_2);
 
-		ImageIcon lblimagen = new ImageIcon("C:\\Users\\1dami.TARTANGALH\\Desktop\\IMG Reto 3 eva Kasinoa/G.jpg");
+		ImageIcon lblimagen = new ImageIcon("imagenes/G.jpg");
 		JLabel lblImagen = new JLabel(lblimagen);
 		lblImagen.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);

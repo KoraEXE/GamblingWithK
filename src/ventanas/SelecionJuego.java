@@ -31,7 +31,7 @@ public class SelecionJuego extends JDialog implements ActionListener {
 		{
 			JLabel lblNewLabel = new JLabel("");
 			lblNewLabel.setBounds(140, 25, 154, 66);
-			lblNewLabel.setIcon(new ImageIcon("C:\\Users\\1dami.TARTANGALH\\Desktop\\IMG Reto 3 eva Kasinoa\\SelecionJuego.png"));
+			lblNewLabel.setIcon(new ImageIcon("imagenes/SelecionJuego.png"));
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			contentPanel.add(lblNewLabel);
 		}
@@ -64,19 +64,19 @@ public class SelecionJuego extends JDialog implements ActionListener {
 		}
 		{
 			JLabel lblNewLabel_1 = new JLabel("");
-			lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\1dami.TARTANGALH\\Desktop\\IMG Reto 3 eva Kasinoa\\Jimbo2 ORIGINAL.jpg"));
+			lblNewLabel_1.setIcon(new ImageIcon("imagenes/Jimbo2 ORIGINAL.jpg"));
 			lblNewLabel_1.setBounds(10, 40, 120, 195);
 			contentPanel.add(lblNewLabel_1);
 		}
 		{
 			JLabel lblNewLabel_1 = new JLabel("");
-			lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\1dami.TARTANGALH\\Desktop\\IMG Reto 3 eva Kasinoa\\Jimbo1 ORIGINAL.jpg"));
+			lblNewLabel_1.setIcon(new ImageIcon("imagenes/Jimbo1 ORIGINAL.jpg"));
 			lblNewLabel_1.setBounds(306, 40, 120, 195);
 			contentPanel.add(lblNewLabel_1);
 		}
 
 		JLabel Fondo = new JLabel("");
-		Fondo.setIcon(new ImageIcon("C:\\\\Users\\\\1dami.TARTANGALH\\\\Desktop\\\\IMG Reto 3 eva Kasinoa\\fondo2.png"));
+		Fondo.setIcon(new ImageIcon("imagenes/fondo2.png"));
 		Fondo.setBounds(0, 0, 436, 263);
 		contentPanel.add(Fondo);
 		
