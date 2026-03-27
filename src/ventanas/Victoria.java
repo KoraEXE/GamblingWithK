@@ -56,10 +56,6 @@ public class Victoria extends JDialog implements ActionListener {
 		Fondo.setIcon(new ImageIcon("imagenes\\FondoDeVictoria.png"));
 		Fondo.setBounds(0, 0, 436, 263);
 		contentPanel.add(Fondo);
-
-		
-			
-
 	}
 
 
