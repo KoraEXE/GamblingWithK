@@ -133,8 +133,13 @@ public class VentanaInicial extends JFrame implements ActionListener{
 		if (e.getSource() == btnPlay) {
 
 			String usuario = textField.getText();
-			String password = campoContrasena.isVisible() ?/*Cambiar esta lambda*/ campoContrasena.getText() : campoContrasenaVisible.getText();
+			String password;
 
+			if (campoContrasena.isVisible()) {
+			    password = campoContrasena.getText();
+			} else {
+			    password = campoContrasenaVisible.getText();
+			}
 			if (usuario.equals("") || password.equals("")) {
 				lblNewLabel_4.setText("Rellena todos los campos");
 			} else {
