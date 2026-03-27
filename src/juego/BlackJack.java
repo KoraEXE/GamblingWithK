@@ -11,7 +11,6 @@ public class BlackJack {
 		int apuesta = cantidad;
 		
 		if (apuesta > 0) {
-			//a
 		}
 	}
 	

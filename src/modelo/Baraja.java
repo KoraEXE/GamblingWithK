@@ -128,5 +128,4 @@ public class Baraja implements Serializable {
 	public void barajar() {
 		Collections.shuffle(baraja);
 	}
-	//a
 }

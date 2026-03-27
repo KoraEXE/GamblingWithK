@@ -34,5 +34,4 @@ public class Carta implements Serializable {
 	public void setImagen(ImageIcon imagen) {
 		this.imagen = imagen;
 	}
-	//a
 }
