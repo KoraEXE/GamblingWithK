@@ -15,6 +15,8 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import javax.swing.JTextField;
@@ -33,8 +35,10 @@ public class VentanaInicial extends JFrame implements ActionListener{
 	private JTextField textField;
 	private JPasswordField campoContrasena;
 	private JCheckBox mostrarContrasena;
-	private JTextField campoContrasenaVisible;
-	private JLabel lblNewLabel_4;
+	private JLabel Hablar;
+	private JLabel TextoExtra;
+	private ImageIcon lblimagen;
+	private JLabel nube;
 
 	public VentanaInicial() {
 		setTitle("Ventana Inicial");
@@ -44,76 +48,108 @@ public class VentanaInicial extends JFrame implements ActionListener{
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		setExtendedState(JFrame.MAXIMIZED_BOTH); //pantalla completa
+		setSize(2400, 1200); //para que se vea en el DESING (NO QUITAR)
 		contentPane.setLayout(null);
 
+
 		JLabel lblNewLabel = new JLabel("Casino");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNewLabel.setBounds(950, 120, 800, 120);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 80));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(143, 0, 156, 47);
 		contentPane.add(lblNewLabel);
 
 		btnPlay = new JButton("Play");
+		btnPlay.setBounds(1246, 556, 210, 60);
 		btnPlay.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnPlay.setBounds(287, 85, 97, 32);
 		contentPane.add(btnPlay);
 		btnPlay.addActionListener(this);
-		
+
 		btnRegister = new JButton("Register");
+		btnRegister.setBounds(1246, 467, 210, 60);
 		btnRegister.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnRegister.addActionListener(this);
-		btnRegister.setBounds(270, 145, 130, 32);
 		contentPane.add(btnRegister);
 
-		ImageIcon lblimagen = new ImageIcon("imagenes/D.jpg");
-		JLabel lblImagen = new JLabel(lblimagen);
+		lblimagen = new ImageIcon("imagenes/D.jpg");
+		JLabel lblImagen = new JLabel(new ImageIcon("imagenes/decepcioandoV3.png"));
+		lblImagen.setBounds(0, 0, 765, 1062);
 		lblImagen.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImagen.setBounds(0, 40, 260, 194);
 		contentPane.add(lblImagen);
 
 		JLabel lblNewLabel_1 = new JLabel("Iniciar Sesión:");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_1.setBounds(10, 239, 71, 13);
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(1219, 404, 261, 52);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		contentPane.add(lblNewLabel_1);
 
 		lblNewLabel_2 = new JLabel("Nombre");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_2.setBounds(91, 239, 61, 13);
+		lblNewLabel_2.setBounds(1030, 260, 158, 52);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		contentPane.add(lblNewLabel_2);
 
 		lblNewLabel_3 = new JLabel("Contraseña");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_3.setBounds(261, 239, 71, 13);
+		lblNewLabel_3.setBounds(1030, 337, 158, 52);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		contentPane.add(lblNewLabel_3);
 
 		textField = new JTextField();
+		textField.setBounds(1219, 264, 261, 52);
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		textField.setBounds(142, 236, 96, 18);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
+
 		campoContrasena = new JPasswordField();
-		campoContrasena.setBounds(326, 236, 100, 19);
+		campoContrasena.setBounds(1219, 341, 261, 52);
 		contentPane.add(campoContrasena);
-		
+
 		mostrarContrasena = new JCheckBox("See Password");
+		mostrarContrasena.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		mostrarContrasena.setBounds(1516, 341, 234, 48);
 		mostrarContrasena.setHorizontalAlignment(SwingConstants.CENTER);
-		mostrarContrasena.setBounds(277, 193, 123, 15);
 		contentPane.add(mostrarContrasena);
 		mostrarContrasena.addActionListener(this);
 
-		campoContrasenaVisible = new JTextField();
-		campoContrasenaVisible.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		campoContrasenaVisible.setBounds(campoContrasena.getBounds());
-		campoContrasenaVisible.setVisible(false);
-		contentPane.add(campoContrasenaVisible);
+		Hablar = new JLabel("");
+		Hablar.setBounds(617, 63, 298, 73);
+		Hablar.setHorizontalAlignment(SwingConstants.CENTER);
+		Hablar.setFont(new Font("Microsoft YaHei Light", Font.ITALIC, 20));
+		contentPane.add(Hablar);
 		
-		lblNewLabel_4 = new JLabel("");
-		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_4.setBounds(287, 214, 139, 12);
-		contentPane.add(lblNewLabel_4);
+		TextoExtra = new JLabel("Game developed by Kora, Martin, Enio and Aritz\r\n Try to dont lose all your money or soul");
+		TextoExtra.setFont(new Font("Tahoma", Font.ITALIC, 16));
+		TextoExtra.setBounds(1036, 627, 642, 142);
+		contentPane.add(TextoExtra);
+		
+		nube = new JLabel("");
+		nube.setIcon(new ImageIcon("imagenes/nube hablarV2.png"));
+		nube.setBounds(617, 72, 298, 99);
+		contentPane.add(nube);
+		nube.setVisible(false);
+		
+		btnPlay.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		    	//cambiar la imagen del JLabel al pasar el mouse sobre el botón
+		    	
+		    	lblImagen.setIcon(new ImageIcon("imagenes/selecionandoV1.png"));
+		        btnPlay.setText("LET'S WIN SOME MONEY");
+		    	btnPlay.setBounds(1219, 555, 261, 60);
+		    	nube.setVisible(false);
+		    	Hablar.setText("");
+		    }
+
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		    	lblImagen.setIcon(new ImageIcon("imagenes/decepcioandoV3.png"));
+		    	btnPlay.setBounds(1246, 556, 210, 60);
+		        btnPlay.setText("Play");		        
+		    }
+		});
 	}
+	
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -125,27 +161,29 @@ public class VentanaInicial extends JFrame implements ActionListener{
 			this.dispose();
 		}
 		if (e.getSource() == mostrarContrasena) {
-			boolean mostrar = mostrarContrasena.isSelected();
-			campoContrasenaVisible.setText(campoContrasena.getText());
-			campoContrasenaVisible.setVisible(mostrar);
-			campoContrasena.setVisible(!mostrar);
+			if (mostrarContrasena.isSelected()) {
+				// (char)0 significa "sin máscara", muestra el texto real
+				campoContrasena.setEchoChar((char) 0); 
+			} else {
+				// Restablece el punto negro o asterisco
+				campoContrasena.setEchoChar('●'); 
+			}
 		}
+
 		if (e.getSource() == btnPlay) {
 
 			String usuario = textField.getText();
-			String password;
+			char[] password = null;
 			if (campoContrasena.isVisible()) {
-			    password = campoContrasena.getText();
-			} else {
-			    password = campoContrasenaVisible.getText();
+				password = campoContrasena.getPassword();
 			}
-
 			if (usuario.equals("") || password.equals("")) {
-				lblNewLabel_4.setText("Rellena todos los campos");
+				nube.setVisible(true);
+				Hablar.setText("Rellena todos los campos");
 			} else {
-				lblNewLabel_4.setText("Datos correctos");
+				Hablar.setText("Datos correctos");
 				// aquí llamar al controlador
-				SelecionJuego v2=new SelecionJuego();
+				SelecionJuego v2=new SelecionJuego();		
 				v2.setVisible(true);
 				this.dispose();
 			}
