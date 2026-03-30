@@ -30,8 +30,8 @@ public class VentanaInicial extends JFrame implements ActionListener{
 	private LoginControlador cont;
 	private JButton btnPlay;
 	private JButton btnRegister;
-	private JLabel lblNewLabel_2;
-	private JLabel lblNewLabel_3;
+	private JLabel TextNombre;
+	private JLabel TextContraseña;
 	private JTextField textField;
 	private JPasswordField campoContrasena;
 	private JCheckBox mostrarContrasena;
@@ -78,21 +78,21 @@ public class VentanaInicial extends JFrame implements ActionListener{
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblImagen);
 
-		JLabel lblNewLabel_1 = new JLabel("Iniciar Sesión:");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(1219, 404, 261, 52);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		contentPane.add(lblNewLabel_1);
+		JLabel TextIniciarSesion = new JLabel("Iniciar Sesión:");
+		TextIniciarSesion.setHorizontalAlignment(SwingConstants.CENTER);
+		TextIniciarSesion.setBounds(1219, 404, 261, 52);
+		TextIniciarSesion.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		contentPane.add(TextIniciarSesion);
 
-		lblNewLabel_2 = new JLabel("Nombre");
-		lblNewLabel_2.setBounds(1030, 260, 158, 52);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		contentPane.add(lblNewLabel_2);
+		TextNombre = new JLabel("Nombre");
+		TextNombre.setBounds(1030, 260, 158, 52);
+		TextNombre.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		contentPane.add(TextNombre);
 
-		lblNewLabel_3 = new JLabel("Contraseña");
-		lblNewLabel_3.setBounds(1030, 337, 158, 52);
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		contentPane.add(lblNewLabel_3);
+		TextContraseña = new JLabel("Contraseña");
+		TextContraseña.setBounds(1030, 337, 158, 52);
+		TextContraseña.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		contentPane.add(TextContraseña);
 
 		textField = new JTextField();
 		textField.setBounds(1219, 264, 261, 52);
