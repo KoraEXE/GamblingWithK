@@ -11,6 +11,11 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import juego.BlackJack;
+import modelo.Baraja;
+import modelo.Carta;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -45,12 +50,12 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		contentPanel.setLayout(null);
 		
 		Carta3 = new JLabel("");
-		Carta3.setIcon(new ImageIcon("C:\\Users\\koraw\\git\\GamblingWithKirk\\imagenes\\1-Treboles.jpg"));
+		Carta3.setIcon(new ImageIcon("imagenes/1-Treboles.jpg"));
 		Carta3.setBounds(828, 645, 113, 151);
 		contentPanel.add(Carta3);
 		
 		Carta2 = new JLabel("");
-		Carta2.setIcon(new ImageIcon("C:\\Users\\koraw\\git\\GamblingWithKirk\\imagenes\\7-Picas.jpg"));
+		Carta2.setIcon(new ImageIcon("imagenes/7-Picas.jpg"));
 		Carta2.setBounds(803, 619, 113, 151);
 		contentPanel.add(Carta2);
 		{
@@ -67,22 +72,22 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		contentPanel.add(ComboIcon);
 		
 		CartaNueva = new JLabel("");
-		CartaNueva.setIcon(new ImageIcon("C:\\Users\\koraw\\git\\GamblingWithKirk\\imagenes\\2-Rombos.jpg"));
+		CartaNueva.setIcon(new ImageIcon("imagenes/2-Rombos.jpg"));
 		CartaNueva.setBounds(1018, 597, 113, 151);
 		contentPanel.add(CartaNueva);
 		
 		Carta1 = new JLabel("");
-		Carta1.setIcon(new ImageIcon("C:\\Users\\koraw\\git\\GamblingWithKirk\\imagenes\\10-Treboles.jpg"));
+		Carta1.setIcon(new ImageIcon("imagenes/10-Treboles.jpg"));
 		Carta1.setBounds(772, 597, 113, 151);
 		contentPanel.add(Carta1);
 		
 		Crupier1 = new JLabel("");
-		Crupier1.setIcon(new ImageIcon("C:\\Users\\koraw\\git\\GamblingWithKirk\\imagenes\\trasera.jpg"));
+		Crupier1.setIcon(new ImageIcon("imagenes/trasera.jpg"));
 		Crupier1.setBounds(772, 190, 113, 151);
 		contentPanel.add(Crupier1);
 		
 		Crupier2 = new JLabel("");
-		Crupier2.setIcon(new ImageIcon("C:\\Users\\koraw\\git\\GamblingWithKirk\\imagenes\\trasera.jpg"));
+		Crupier2.setIcon(new ImageIcon("imagenes/trasera.jpg"));
 		Crupier2.setBounds(1018, 190, 113, 151);
 		contentPanel.add(Crupier2);
 		
@@ -134,6 +139,8 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		int sumaT = 0; //suma total
+		String sumaF = ""; //suma final
 		
 		if (e.getSource() == botonJugar) {
 			try {
@@ -149,8 +156,17 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 				BotonPedir.setEnabled(true);
 				BotonParar.setEnabled(true);
 				botonJugar.setEnabled(false);
-			} else {
 				
+				Baraja baraja = new Baraja();
+				Carta carta = new Carta();
+				BlackJack bkj = new BlackJack();
+				bkj.iniciarJuego();
+				bkj.apostar();
+				
+				//Aqui se le asigna la carta al jugador y se le quita de la baraja
+				sumaT = sumaT + Integer.parseInt(carta.getNumero());
+				sumaF = Integer.toString(sumaT);
+				TextSuma.setText("Suma Total: " + sumaF);
 			}
 		}
 		

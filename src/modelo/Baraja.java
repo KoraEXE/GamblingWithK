@@ -15,8 +15,24 @@ import javax.swing.ImageIcon;
 
 public class Baraja implements Serializable {
 
-	private final ArrayList<Carta> baraja = new ArrayList<>();
-	private final String RUTA = "baraja.dat";
+	public ArrayList<Carta> baraja = new ArrayList<>();
+	public String RUTA = "baraja.dat";
+
+	public ArrayList<Carta> getBaraja() {
+		return baraja;
+	}
+
+	public void setBaraja(ArrayList<Carta> baraja) {
+		this.baraja = baraja;
+	}
+
+	public String getRUTA() {
+		return RUTA;
+	}
+
+	public void setRUTA(String rUTA) {
+		RUTA = rUTA;
+	}
 
 	public Baraja() {
 		File f = new File(RUTA);
@@ -29,7 +45,7 @@ public class Baraja implements Serializable {
 		barajar();
 	}
 
-	private void crearYGuardarBaraja() {
+	public void crearYGuardarBaraja() {
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(RUTA));
 
@@ -96,7 +112,7 @@ public class Baraja implements Serializable {
 		}
 	}
 
-	private void cargarBaraja() {
+	public void cargarBaraja() {
 		boolean cargada = false;
 
 		try {

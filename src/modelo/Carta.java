@@ -10,9 +10,9 @@ public class Carta implements Serializable {
 	public Carta (String numero, ImageIcon imagen) {
 		this.numero = numero;
 		this.imagen = imagen;
-		
-		
-		
+	}
+	
+	public Carta () {
 	}
 
 	public String getNumero() { //Solo se setea porque el numero ya esta dfinido para no liarnos

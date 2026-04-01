@@ -36,7 +36,7 @@ public class SelecionJuego extends JDialog implements ActionListener {
 		{
 			JLabel lblNewLabel = new JLabel("");
 			lblNewLabel.setBounds(661, 0, 581, 387);
-			lblNewLabel.setIcon(new ImageIcon("C:\\Users\\koraw\\git\\GamblingWithKirk\\imagenes\\SelecionaJuego V1.png"));
+			lblNewLabel.setIcon(new ImageIcon("imagenes/SelecionaJuego V1.png"));
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			contentPanel.add(lblNewLabel);
 		}
@@ -73,13 +73,13 @@ public class SelecionJuego extends JDialog implements ActionListener {
 		}
 		{
 			JLabel lblNewLabel_1 = new JLabel("");
-			lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\koraw\\git\\GamblingWithKirk\\imagenes\\Balatro2.png"));
+			lblNewLabel_1.setIcon(new ImageIcon("imagenes/Balatro2.png"));
 			lblNewLabel_1.setBounds(0, 0, 661, 1041);
 			contentPanel.add(lblNewLabel_1);
 		}
 		{
 			JLabel lblNewLabel_1 = new JLabel("");
-			lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\koraw\\git\\GamblingWithKirk\\imagenes\\Balatro1.png"));
+			lblNewLabel_1.setIcon(new ImageIcon("imagenes/Balatro1.png"));
 			lblNewLabel_1.setBounds(1243, 0, 661, 1041);
 			contentPanel.add(lblNewLabel_1);
 		}

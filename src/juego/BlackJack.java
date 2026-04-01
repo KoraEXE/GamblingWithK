@@ -1,12 +1,17 @@
 package juego;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import modelo.*;
+import ventanas.*;
 
-public class BlackJack {
+public class BlackJack implements Serializable {
 	private int cantidad;
 	private ArrayList<Carta> baraja = new ArrayList<>();
 	boolean juegoActivo = false;
+	int multiplicador = 0;
+	int racha = 0;
+	int randomCarta = 0;
 	
 	// -Jugador y cartas-
 		//ramdomizar la selecion de cartas para el jugador. 
@@ -38,19 +43,25 @@ public class BlackJack {
 		//Si ha sido blackjack aumentara un 0,25 en vez de 0,10
 		//Despues de 5 ganadas no se sumaran nada mas
 		//Si has perdido puedes mantener la racha pagando 1/12 de tu dinero
+	
+	public boolean iniciarJuego() {
+		boolean juegoActivo = true;
+		Baraja baraja = new Baraja();
+		baraja.crearYGuardarBaraja();
+		
+		return juegoActivo;
+	}
 
 	public void apostar() {
-		int apuesta = cantidad;
-
-		if (apuesta > 0) {
-			juegoActivo = true;
-			
-			
-
-		} else {
-			juegoActivo = false;
-		}
+		//Genera un numero random entre 1 al 51
+		//Le quita la carta al arraylist/baraja
+		//Reparte la carta al jugador
+		Baraja baraja = new Baraja();
+		Carta carta = new Carta();
+		ArrayList<Carta> totalBaraja = baraja.getBaraja();
+		baraja.cargarBaraja();
+		randomCarta = (int) (Math.random() * 51) + 1;
+		carta = totalBaraja.get(randomCarta);
+		
 	} 
-
-
 }
