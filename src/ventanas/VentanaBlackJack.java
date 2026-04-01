@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -48,12 +50,12 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
+
 		Carta3 = new JLabel("");
 		Carta3.setIcon(new ImageIcon("imagenes/1-Treboles.jpg"));
 		Carta3.setBounds(828, 645, 113, 151);
 		contentPanel.add(Carta3);
-		
+
 		Carta2 = new JLabel("");
 		Carta2.setIcon(new ImageIcon("imagenes/7-Picas.jpg"));
 		Carta2.setBounds(803, 619, 113, 151);
@@ -64,69 +66,69 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 			ComboText.setFont(new Font("Tahoma", Font.BOLD, 18));
 			contentPanel.add(ComboText);
 		}
-		
+
 		ComboIcon = new JLabel("x3");
 		ComboIcon.setHorizontalAlignment(SwingConstants.CENTER);
 		ComboIcon.setBounds(103, 12, 68, 69);
 		ComboIcon.setFont(new Font("Tahoma", Font.PLAIN, 58));
 		contentPanel.add(ComboIcon);
-		
+
 		CartaNueva = new JLabel("");
 		CartaNueva.setIcon(new ImageIcon("imagenes/2-Rombos.jpg"));
 		CartaNueva.setBounds(1018, 597, 113, 151);
 		contentPanel.add(CartaNueva);
-		
+
 		Carta1 = new JLabel("");
 		Carta1.setIcon(new ImageIcon("imagenes/10-Treboles.jpg"));
 		Carta1.setBounds(772, 597, 113, 151);
 		contentPanel.add(Carta1);
-		
+
 		Crupier1 = new JLabel("");
 		Crupier1.setIcon(new ImageIcon("imagenes/trasera.jpg"));
 		Crupier1.setBounds(772, 190, 113, 151);
 		contentPanel.add(Crupier1);
-		
+
 		Crupier2 = new JLabel("");
 		Crupier2.setIcon(new ImageIcon("imagenes/trasera.jpg"));
 		Crupier2.setBounds(1018, 190, 113, 151);
 		contentPanel.add(Crupier2);
-		
+
 		BotonPedir = new JButton("Pedir");
 		BotonPedir.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		BotonPedir.setBounds(772, 870, 113, 43);
 		contentPanel.add(BotonPedir);
 		BotonPedir.setEnabled(false);
-		
+
 		BotonParar = new JButton("Parar");
 		BotonParar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		BotonParar.setBounds(1018, 870, 113, 43);
 		contentPanel.add(BotonParar);
 		BotonParar.setEnabled(false);
-		
+
 		TextSuma = new JLabel("Suma Total:");
 		TextSuma.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		TextSuma.setBounds(807, 541, 109, 31);
 		contentPanel.add(TextSuma);
-		
+
 		SumaTotal = new JLabel("20");
 		SumaTotal.setHorizontalAlignment(SwingConstants.CENTER);
 		SumaTotal.setFont(new Font("Tahoma", Font.BOLD, 20));
 		SumaTotal.setBounds(924, 541, 39, 31);
 		contentPanel.add(SumaTotal);
-		
+
 		TextoApostar = new JLabel("Cuanto quieres apostar?");
 		TextoApostar.setHorizontalAlignment(SwingConstants.CENTER);
 		TextoApostar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		TextoApostar.setBounds(356, 696, 294, 31);
 		contentPanel.add(TextoApostar);
-		
+
 		Apuesta = new JTextField();
 		Apuesta.setHorizontalAlignment(SwingConstants.CENTER);
 		Apuesta.setText("Introduce la apuesta");
 		Apuesta.setBounds(418, 750, 171, 20);
 		contentPanel.add(Apuesta);
 		Apuesta.setColumns(10);
-		
+
 		botonJugar = new JButton("JUGAR");
 		botonJugar.setBounds(455, 781, 89, 23);
 		contentPanel.add(botonJugar);
@@ -141,7 +143,7 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		// TODO Auto-generated method stub
 		int sumaT = 0; //suma total
 		String sumaF = ""; //suma final
-		
+
 		if (e.getSource() == botonJugar) {
 			try {
 				cantidad = Integer.parseInt(Apuesta.getText());
@@ -150,26 +152,58 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 				return;
 			}
 			//Integer.parseInt(texto);
-			
+
 			if (cantidad > 0) {
 				TextoApostar.setText("¡Buena suerte!");
+				sumaF = Integer.toString(sumaT);
+				TextSuma.setText("Suma Total: " + sumaF);
 				BotonPedir.setEnabled(true);
 				BotonParar.setEnabled(true);
 				botonJugar.setEnabled(false);
-				
-				Baraja baraja = new Baraja();
+				File f = new File("baraja.dat");
+				ArrayList<Carta> totalBaraja = new ArrayList<>();
+				Baraja baraja = new Baraja(f, totalBaraja);
 				Carta carta = new Carta();
 				BlackJack bkj = new BlackJack();
-				bkj.iniciarJuego();
-				bkj.apostar();
-				
+				bkj.iniciarJuego(f, totalBaraja ); 
+				bkj.apostar(f, carta, totalBaraja);
+
+				System.out.println("Cantidad apostada: " + cantidad);
+				System.out.println("Carta repartida: " + totalBaraja.get(bkj.randomCarta).getNumero());
+				if (totalBaraja.get(bkj.randomCarta).getNumero().equals("AS") && sumaT <= 10) {
+					sumaT = sumaT + 11;
+				} else { if (totalBaraja.get(bkj.randomCarta).getNumero().equals("DOS")) {
+					sumaT = sumaT + 2;
+				} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("TRES")) {
+					sumaT = sumaT + 3;
+				} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("CUATRO")) {
+					sumaT = sumaT + 4;
+				} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("CINCO")) {
+					sumaT = sumaT + 5;
+				} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("SEIS")) {
+					sumaT = sumaT + 6;
+				} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("SIETE")) {
+					sumaT = sumaT + 7;
+				} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("OCHO")) {
+					sumaT = sumaT + 8;
+				} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("NUEVE")) {
+					sumaT = sumaT + 9;
+				} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("DIEZ") || totalBaraja.get(bkj.randomCarta).getNumero().equals("J") || totalBaraja.get(bkj.randomCarta).getNumero().equals("Q") || totalBaraja.get(bkj.randomCarta).getNumero().equals("K")) {
+					sumaT = sumaT + 10;
+				} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("AS") && sumaT > 10) {
+					sumaT = sumaT + 1;
+				}
+
+				for (Carta c : baraja.getBaraja()) {
+					System.out.println("Carta en la baraja: " + c.getNumero());
+				}
 				//Aqui se le asigna la carta al jugador y se le quita de la baraja
-				sumaT = sumaT + Integer.parseInt(carta.getNumero());
-				sumaF = Integer.toString(sumaT);
-				TextSuma.setText("Suma Total: " + sumaF);
+
+
+
+				}
 			}
+
 		}
-		
-		
 	}
 }

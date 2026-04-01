@@ -34,17 +34,17 @@ public class Baraja implements Serializable {
 		RUTA = rUTA;
 	}
 
-	public Baraja() {
-		File f = new File(RUTA);
+	public Baraja(File f, ArrayList<Carta> baraja) {
+		 f = new File(RUTA);
 
 		if (!f.exists()) {
 			crearYGuardarBaraja(); //si no existe, la crea
 		}
 
-		cargarBaraja(); //siempre la carga
+		cargarBaraja(baraja); //siempre la carga
 		barajar();
 	}
-
+	
 	public void crearYGuardarBaraja() {
 		try {
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(RUTA));
@@ -112,7 +112,7 @@ public class Baraja implements Serializable {
 		}
 	}
 
-	public void cargarBaraja() {
+	public void cargarBaraja(ArrayList<Carta> baraja) {
 		boolean cargada = false;
 
 		try {
@@ -137,7 +137,7 @@ public class Baraja implements Serializable {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public Carta getCarta(int i) {
 		return baraja.get(i);
 	}
