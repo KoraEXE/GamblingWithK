@@ -12,10 +12,10 @@ public class BlackJack implements Serializable {
 	int multiplicador = 0;
 	int racha = 0;
 	public int randomCarta = 0;
-	File f = new File("baraja.dat");
-	ArrayList<Carta> totalBaraja = new ArrayList<>();
-	Baraja baraja = new Baraja(f, totalBaraja);
-	int cantidadC = 0;
+	public File f = new File("baraja.dat");
+	public ArrayList<Carta> totalBaraja = new ArrayList<>();
+	public Baraja baraja = new Baraja(f, totalBaraja);
+	public int cantidadC = 0;
 
 	// -Jugador y cartas-
 	//ramdomizar la selecion de cartas para el jugador. 
@@ -64,14 +64,15 @@ public class BlackJack implements Serializable {
 		randomCarta = (int) (Math.random() * cantidadC -1);
 		carta = totalBaraja.get(randomCarta);
 		totalBaraja.remove(randomCarta);
-		cantidadC --;
-		System.out.println(totalBaraja.size());
+		cantidadC = cantidadC - 1;
 	} 
 
-	public int traductorDeCartas(ArrayList<Carta> totalBaraja, BlackJack bkj, int sumaT, boolean as) {
+	public int traductorDeCartas(ArrayList<Carta> totalBaraja, BlackJack bkj, int sumaT) {
 		if (totalBaraja.get(bkj.randomCarta).getNumero().equals("AS")) {
 			sumaT = sumaT + 11;
-			as = true;
+			 if (sumaT > 21) {
+				 sumaT = sumaT - 10;
+			 }	 
 		} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("DOS")) {
 			sumaT = sumaT + 2;
 		} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("TRES")) {

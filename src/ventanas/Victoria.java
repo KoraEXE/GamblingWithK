@@ -45,6 +45,7 @@ public class Victoria extends JDialog implements ActionListener {
 		SeguirJugando.setIcon(new ImageIcon("imagenes\\SeguirGanandoV2 (1).png"));
 		SeguirJugando.setBounds(231, 95, 188, 28);
 		contentPanel.add(SeguirJugando);
+		this.SeguirJugando.addActionListener(this);
 		
 		PerderLaRacha = new JButton("");
 		PerderLaRacha.setIcon(new ImageIcon("imagenes\\PerderRacha.png"));
@@ -66,6 +67,10 @@ public class Victoria extends JDialog implements ActionListener {
 		if(e.getSource()==PerderLaRacha) {
 			SelecionJuego sJ=new SelecionJuego();
 			sJ.setVisible(true);
+			this.dispose();
+		}
+		
+		if(e.getSource()==SeguirJugando) {
 			this.dispose();
 		}
 

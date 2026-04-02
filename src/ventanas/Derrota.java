@@ -46,6 +46,7 @@ public class Derrota extends JDialog implements ActionListener {
 		SeguirJugando.setIcon(new ImageIcon("imagenes/SeguirGanandoV2 (1).png"));
 		SeguirJugando.setBounds(260, 95, 159, 28);
 		contentPanel.add(SeguirJugando);
+		this.SeguirJugando.addActionListener(this);
 		
 		PerderLaRacha = new JButton("");
 		PerderLaRacha.setIcon(new ImageIcon("imagenes/PerderRacha.png"));
@@ -58,9 +59,6 @@ public class Derrota extends JDialog implements ActionListener {
 		Fondo.setBounds(0, 0, 436, 263);
 		contentPanel.add(Fondo);
 
-		
-			
-
 	}
 
 
@@ -71,6 +69,10 @@ public class Derrota extends JDialog implements ActionListener {
 		if(e.getSource()==PerderLaRacha) {
 			SelecionJuego sJ=new SelecionJuego();
 			sJ.setVisible(true);
+			this.dispose();
+		}
+		
+		if(e.getSource()==SeguirJugando) {
 			this.dispose();
 		}
 
