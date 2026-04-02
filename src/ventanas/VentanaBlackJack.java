@@ -43,11 +43,12 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 	private JTextField Apuesta;
 	private JButton botonJugar;
 	private JLabel TextSumaCrupier;
-	private JLabel SumaTotalCrupier;
+	private JLabel SumaTotalCrupier1;
 	private int cantidad;
 	private JLabel NoMostrar1;
 	private JLabel NoMostrar2;
 	private JLabel TextoInfo;
+	private JLabel sumaTotalCrupier2;
 
 	public VentanaBlackJack() {
 		setBounds(100, 100, 450, 300);
@@ -55,6 +56,13 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		
+		sumaTotalCrupier2 = new JLabel("");
+		sumaTotalCrupier2.setHorizontalAlignment(SwingConstants.CENTER);
+		sumaTotalCrupier2.setFont(new Font("Tahoma", Font.BOLD, 20));
+		sumaTotalCrupier2.setBounds(924, 499, 39, 31);
+		contentPanel.add(sumaTotalCrupier2);
+		sumaTotalCrupier2.setVisible(false);
 
 		NoMostrar2 = new JLabel("");
 		NoMostrar2.setIcon(new ImageIcon("D:\\eclipse-workspace\\GamblingWithKirk\\imagenes\\trasera.jpg"));
@@ -158,11 +166,11 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		TextSumaCrupier.setBounds(750, 499, 166, 31);
 		contentPanel.add(TextSumaCrupier);
 
-		SumaTotalCrupier = new JLabel("");
-		SumaTotalCrupier.setHorizontalAlignment(SwingConstants.CENTER);
-		SumaTotalCrupier.setFont(new Font("Tahoma", Font.BOLD, 20));
-		SumaTotalCrupier.setBounds(924, 499, 39, 31);
-		contentPanel.add(SumaTotalCrupier);
+		SumaTotalCrupier1 = new JLabel("");
+		SumaTotalCrupier1.setHorizontalAlignment(SwingConstants.CENTER);
+		SumaTotalCrupier1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		SumaTotalCrupier1.setBounds(924, 499, 39, 31);
+		contentPanel.add(SumaTotalCrupier1);
 		
 		TextoInfo = new JLabel("Suma Total Crupier:");
 		TextoInfo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -213,8 +221,6 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 				botonJugar.setEnabled(false);
 
 				//Para el jugador
-
-
 				do {
 					bkj.apostar(f, carta, totalBaraja, numCartasArray);
 
@@ -232,7 +238,7 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 
 					if (contadorCartas == 2) {
 						sumaFC = Integer.toString(sumaT);
-						SumaTotalCrupier.setText(sumaFC);
+						SumaTotalCrupier1.setText(sumaFC);
 						System.out.println("Carta obtenida para el Crupier: " + totalBaraja.get(bkj.randomCarta).getNumero());
 						
 					} else if (contadorCartas == 3) {
@@ -299,6 +305,19 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 				Carta3.setVisible(true);
 				CartaNueva.setIcon(totalBaraja.get(bkj.randomCarta).getImagen());
 			}
+		}
+		
+		if (e.getSource() == BotonParar) {
+			NoMostrar2.setVisible(false);
+			sumaFC = SumaTotalCrupier1.getText();
+			sumaT = Integer.parseInt(sumaFC);
+			SumaTotalCrupier1.setText(sumaFC);
+			
+			
+			
+			
+			
+			
 		}
 	}
 }

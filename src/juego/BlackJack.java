@@ -61,7 +61,7 @@ public class BlackJack implements Serializable {
 		//Reparte la carta al jugador
 		//randomCarta es la posicion de la carta
 		cantidadC = totalBaraja.size();
-		randomCarta = (int) (Math.random() * cantidadC);
+		randomCarta = (int) (Math.random() * cantidadC -1);
 		carta = totalBaraja.get(randomCarta);
 		totalBaraja.remove(randomCarta);
 		cantidadC --;
