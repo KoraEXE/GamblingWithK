@@ -102,6 +102,7 @@ public class BlackJack implements Serializable {
 		} else {
 			// DIEZ, J, Q, K
 			sumaT += 10;
+			
 		}
 
 		return sumaT;
