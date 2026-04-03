@@ -48,6 +48,20 @@ public class BlackJack implements Serializable {
 	//Despues de 5 ganadas no se sumaran nada mas
 	//Si has perdido puedes mantener la racha pagando 1/12 de tu dinero
 
+	
+	//Esto decide despues de hacer el calculo si ganas, pierdes o empatas//
+	public String comprobarResultado(int sumaJugador, int sumaCrupier) {
+	    if (sumaJugador > 21) {
+	        return "PERDER";
+	    } else if (sumaCrupier > 21 || sumaJugador > sumaCrupier) {
+	        return "GANAR";
+	    } else if (sumaJugador == sumaCrupier) {
+	        return "EMPATE";
+	    } else {
+	        return "PERDER";
+	    }
+	}
+	
 	public boolean iniciarJuego(File f, ArrayList<Carta> totalBaraja) {
 		boolean juegoActivo = true;
 		Baraja baraja = new Baraja(f, totalBaraja);
@@ -107,4 +121,5 @@ public class BlackJack implements Serializable {
 
 		return sumaT;
 	}
+	
 }

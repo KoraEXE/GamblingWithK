@@ -51,6 +51,7 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 	private JLabel sumaTotalReal;
 	private JLabel Crupier2;
 	private JButton btnAaaaaaaa;
+	BlackJack juego = new BlackJack();
 	
 	public VentanaBlackJack() {
 		setBounds(100, 100, 450, 300);
@@ -315,13 +316,8 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 			
 
 			if ((sumaT = Integer.parseInt(sumaF)) > 21) {
-				BotonPedir.setEnabled(false);
-				BotonParar.setEnabled(false);
-				TextoInfo.setText("¡Has perdido!");
-				Derrota vD=new Derrota();
-				vD.setVisible(true);
-				botonJugar.setEnabled(true);
-			}	
+			    terminarRonda("PERDER");
+			}
 			if (Carta2.isVisible() == false) {
 				Carta2.setVisible(true);				
 				CartaNueva.setIcon(totalBaraja.get(bkj.randomCarta).getImagen());
@@ -352,17 +348,9 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 				NuevoCrupier.setIcon(totalBaraja.get(bkj.randomCarta).getImagen());				
 				
 				if (Integer.parseInt(sumaF) > Integer.parseInt(sumaFC)) {
-					BotonPedir.setEnabled(false);
-					BotonParar.setEnabled(false);
-					TextoInfo.setText("¡Has ganado!");
-					Victoria vV = new Victoria();
-					vV.setVisible(true);
-					botonJugar.setEnabled(true);
+				    terminarRonda("GANAR");
 				} else if (sumaF.equals(sumaFC)) {
-					BotonPedir.setEnabled(false);
-					BotonParar.setEnabled(false);
-					TextoInfo.setText("¡Empate!");
-					botonJugar.setEnabled(true);
+				    terminarRonda("EMPATE");
 				} else {
 					TextoInfo.setText("¡Has perdido!");
 					Derrota vD=new Derrota();
@@ -381,5 +369,23 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 				botonJugar.setEnabled(true);
 			}
 		}
+	}
+	//Centraliza todo lo que pasa cuando acaba una partida en vez de repetir codigo (probad a ver que tal os va)//
+	private void terminarRonda(String resultado) {
+	    BotonPedir.setEnabled(false);
+	    BotonParar.setEnabled(false);
+	    botonJugar.setEnabled(true);
+
+	    if (resultado.equals("GANAR")) {
+	        TextoInfo.setText("¡Has ganado!");
+	        new Victoria().setVisible(true);
+
+	    } else if (resultado.equals("PERDER")) {
+	        TextoInfo.setText("¡Has perdido!");
+	        new Derrota().setVisible(true);
+
+	    } else {
+	        TextoInfo.setText("¡Empate!");
+	    }
 	}
 }
