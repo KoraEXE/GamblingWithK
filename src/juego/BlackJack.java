@@ -56,42 +56,54 @@ public class BlackJack implements Serializable {
 		return juegoActivo;
 	}
 
-	public void apostar(File f, Carta carta, ArrayList<Carta> totalBaraja, int cantidadC) {
+	public void apostar(File f, Carta carta, ArrayList<Carta> totalBaraja) {
 		//Genera un numero random entre 1 al 51
 		//Reparte la carta al jugador
 		//randomCarta es la posicion de la carta
-		cantidadC = totalBaraja.size();
-		randomCarta = (int) (Math.random() * cantidadC -1);
+
+		randomCarta = (int) (Math.random() * (totalBaraja.size()-1));
 		carta = totalBaraja.get(randomCarta);
 		totalBaraja.remove(randomCarta);
-		cantidadC = cantidadC - 1;
 	} 
 
 	public int traductorDeCartas(ArrayList<Carta> totalBaraja, BlackJack bkj, int sumaT) {
-		if (totalBaraja.get(bkj.randomCarta).getNumero().equals("AS")) {
-			sumaT = sumaT + 11;
-			 if (sumaT > 21) {
-				 sumaT = sumaT - 10;
-			 }	 
+
+		if (totalBaraja.get(bkj.randomCarta).getNumero().equals("UNO")) {
+			if (sumaT > 10) {
+				sumaT += 1;
+			} else {
+				sumaT += 11;
+			}
+
 		} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("DOS")) {
-			sumaT = sumaT + 2;
+			sumaT += 2;
+
 		} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("TRES")) {
-			sumaT = sumaT + 3;
+			sumaT += 3;
+
 		} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("CUATRO")) {
-			sumaT = sumaT + 4;
+			sumaT += 4;
+
 		} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("CINCO")) {
-			sumaT = sumaT + 5;
+			sumaT += 5;
+
 		} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("SEIS")) {
-			sumaT = sumaT + 6;
+			sumaT += 6;
+
 		} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("SIETE")) {
-			sumaT = sumaT + 7;
+			sumaT += 7;
+
 		} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("OCHO")) {
-			sumaT = sumaT + 8;
+			sumaT += 8;
+
 		} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("NUEVE")) {
-			sumaT = sumaT + 9;
-		} else if (totalBaraja.get(bkj.randomCarta).getNumero().equals("DIEZ") || totalBaraja.get(bkj.randomCarta).getNumero().equals("J") || totalBaraja.get(bkj.randomCarta).getNumero().equals("Q") || totalBaraja.get(bkj.randomCarta).getNumero().equals("K")) {
-			sumaT = sumaT + 10;
+			sumaT += 9;
+
+		} else {
+			// DIEZ, J, Q, K
+			sumaT += 10;
 		}
+
 		return sumaT;
 	}
 }

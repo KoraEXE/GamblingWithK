@@ -215,6 +215,8 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		BlackJack bkj = new BlackJack();
 		TextoInfo.setText("");
 		
+		bkj.iniciarJuego(f, totalBaraja );
+		
 		if (e.getSource() == btnAaaaaaaa) {
 			for (int i = 0; i < totalBaraja.size(); i++) {
 				System.out.println("Carta " + (i + 1) + ": " + totalBaraja.get(i).getNumero());
@@ -223,7 +225,6 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		
 		
 		if (e.getSource() == botonJugar) {
-			bkj.iniciarJuego(f, totalBaraja );
 			try {
 				cantidad = Integer.parseInt(Apuesta.getText());
 			} catch (NumberFormatException ex) {
@@ -234,7 +235,7 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 
 			if (cantidad > 0) {
 
-
+			
 				TextoApostar.setText("¡Buena suerte!");
 				BotonPedir.setEnabled(true);
 				BotonParar.setEnabled(true);
@@ -242,7 +243,7 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 
 				//Para el jugador
 				do {
-					bkj.apostar(f, carta, totalBaraja, numCartasArray);
+					bkj.apostar(f, carta, totalBaraja);
 					System.out.println(numCartasArray);
 
 					if (contadorCartas == 2) {
@@ -299,8 +300,9 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		}
 
 		if (e.getSource() == BotonPedir) {
+			bkj.apostar(f, carta, totalBaraja);
 			System.out.println("Se pide");
-			bkj.apostar(f, carta, totalBaraja, numCartasArray);
+			bkj.apostar(f, carta, totalBaraja);
 			System.out.println(numCartasArray);
 			sumaF = SumaTotal.getText();
 			sumaT = Integer.parseInt(sumaF);
@@ -331,6 +333,8 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		}
 
 		if (e.getSource() == BotonParar) {
+			//ATENCION BOTON PARAR AL SER EL MAS PROBLEATICO POR ARRAY
+			bkj.apostar(f, carta, totalBaraja);
 			System.out.println("Se para");
 			NoMostrar2.setVisible(false);
 			sumaFC = sumaTotalReal.getText();
@@ -344,7 +348,7 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 				sumaFC = Integer.toString(sumaT);
 				sumaTotalReal.setText(sumaFC);
 				System.out.println("Carta obtenida para el Crupier: " + totalBaraja.get(bkj.randomCarta).getNumero());
-				Carta2.setVisible(true);
+				Crupier2.setVisible(true);
 				NuevoCrupier.setIcon(totalBaraja.get(bkj.randomCarta).getImagen());				
 				
 				if (Integer.parseInt(sumaF) > Integer.parseInt(sumaFC)) {
@@ -355,6 +359,8 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 					vV.setVisible(true);
 					botonJugar.setEnabled(true);
 				} else if (sumaF.equals(sumaFC)) {
+					BotonPedir.setEnabled(false);
+					BotonParar.setEnabled(false);
 					TextoInfo.setText("¡Empate!");
 					botonJugar.setEnabled(true);
 				} else {
@@ -364,6 +370,8 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 					botonJugar.setEnabled(true);
 				}
 			} else if (sumaF.equals(sumaFC)) {
+				BotonPedir.setEnabled(false);
+				BotonParar.setEnabled(false);
 				TextoInfo.setText("¡Empate!");
 				botonJugar.setEnabled(true);
 			} else {
