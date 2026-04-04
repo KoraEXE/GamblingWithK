@@ -21,16 +21,24 @@ public class Derrota extends JDialog implements ActionListener {
 	private JButton SeguirJugando;
 	private JButton PerderLaRacha;
 	private JLabel Fondo;
+	private JDialog VentanaBlackJack;
+	
+	
 
 
-	public Derrota() {
+	public Derrota(JDialog VentanaBlackJack) {
+		 super(VentanaBlackJack, "Derrota", true);
+		 this.VentanaBlackJack = VentanaBlackJack;
+		 
+		setAlwaysOnTop(true);
+		setUndecorated(true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/miniIconoV2.png"));
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		this.setLocation(0, 0);
+		
 
 		miniIcono = new JLabel("");
 		miniIcono.setIcon(new ImageIcon("imagenes/miniIconoV2.png"));
@@ -61,6 +69,7 @@ public class Derrota extends JDialog implements ActionListener {
 
 	}
 
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -69,7 +78,10 @@ public class Derrota extends JDialog implements ActionListener {
 		if(e.getSource()==PerderLaRacha) {
 			SelecionJuego sJ=new SelecionJuego();
 			sJ.setVisible(true);
+			VentanaBlackJack.dispose();
 			this.dispose();
+			
+			
 		}
 		
 		if(e.getSource()==SeguirJugando) {

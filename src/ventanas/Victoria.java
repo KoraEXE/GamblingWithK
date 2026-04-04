@@ -21,9 +21,15 @@ public class Victoria extends JDialog implements ActionListener {
 	private JButton SeguirJugando;
 	private JButton PerderLaRacha;
 	private JLabel Fondo;
+	private JDialog VentanaBlackJack;
 
 
-	public Victoria() {
+	public Victoria(JDialog VentanaBlackJack) {
+		super(VentanaBlackJack, "Victoria", true);
+		this.VentanaBlackJack = VentanaBlackJack;
+
+		setAlwaysOnTop(true);
+		setUndecorated(true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/miniIconoV2.png"));
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -46,7 +52,7 @@ public class Victoria extends JDialog implements ActionListener {
 		SeguirJugando.setBounds(231, 95, 188, 28);
 		contentPanel.add(SeguirJugando);
 		this.SeguirJugando.addActionListener(this);
-		
+
 		PerderLaRacha = new JButton("");
 		PerderLaRacha.setIcon(new ImageIcon("imagenes\\PerderRacha.png"));
 		PerderLaRacha.setBounds(231, 160, 188, 28);
@@ -67,9 +73,10 @@ public class Victoria extends JDialog implements ActionListener {
 		if(e.getSource()==PerderLaRacha) {
 			SelecionJuego sJ=new SelecionJuego();
 			sJ.setVisible(true);
+			VentanaBlackJack.dispose();
 			this.dispose();
 		}
-		
+
 		if(e.getSource()==SeguirJugando) {
 			this.dispose();
 		}

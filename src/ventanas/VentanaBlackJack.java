@@ -50,16 +50,15 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 	private JLabel TextoInfo;
 	private JLabel sumaTotalReal;
 	private JLabel Crupier2;
-	private JButton btnAaaaaaaa;
 	BlackJack juego = new BlackJack();
-	
+
 	public VentanaBlackJack() {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
+
 		Crupier2 = new JLabel("");
 		Crupier2.setIcon(new ImageIcon("imagenes/trasera.jpg"));
 		Crupier2.setBounds(826, 237, 113, 151);
@@ -74,7 +73,7 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		sumaTotalReal.setVisible(false);
 
 		NoMostrar2 = new JLabel("");
-		NoMostrar2.setIcon(new ImageIcon("D:\\eclipse-workspace\\GamblingWithKirk\\imagenes\\trasera.jpg"));
+		NoMostrar2.setIcon(new ImageIcon("imagenes/trasera.jpg"));
 		NoMostrar2.setBounds(1018, 190, 113, 151);
 		contentPanel.add(NoMostrar2);
 
@@ -84,18 +83,18 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		contentPanel.add(NuevoCrupier);
 
 		NoMostrar1 = new JLabel("");
-		NoMostrar1.setIcon(new ImageIcon("D:\\eclipse-workspace\\GamblingWithKirk\\imagenes\\trasera.jpg"));
+		NoMostrar1.setIcon(new ImageIcon("imagenes/trasera.jpg"));
 		NoMostrar1.setBounds(772, 190, 113, 151);
 		contentPanel.add(NoMostrar1);
 
 		Carta3 = new JLabel("");
-		Carta3.setIcon(new ImageIcon("D:\\eclipse-workspace\\GamblingWithKirk\\imagenes\\trasera.jpg"));
+		Carta3.setIcon(new ImageIcon("imagenes/trasera.jpg"));
 		Carta3.setBounds(850, 651, 113, 151);
 		contentPanel.add(Carta3);
 		Carta3.setVisible(false);
 
 		Carta2 = new JLabel("");
-		Carta2.setIcon(new ImageIcon("D:\\eclipse-workspace\\GamblingWithKirk\\imagenes\\trasera.jpg"));
+		Carta2.setIcon(new ImageIcon("imagenes/trasera.jpg"));
 		Carta2.setBounds(803, 619, 113, 151);
 		contentPanel.add(Carta2);
 		Carta2.setVisible(false);
@@ -186,18 +185,14 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		TextoInfo.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		TextoInfo.setBounds(577, 371, 749, 98);
 		contentPanel.add(TextoInfo);
-		
-		 btnAaaaaaaa = new JButton("AAAAAAAA");
-		btnAaaaaaaa.setBounds(191, 583, 147, 36);
-		contentPanel.add(btnAaaaaaaa);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setSize(screenSize);
 		this.setLocation(0, 0);
 		botonJugar.addActionListener(this);
 		BotonPedir.addActionListener(this);
 		BotonParar.addActionListener(this);
-		btnAaaaaaaa.addActionListener(this);
 		
+
 	}
 
 	@Override
@@ -215,17 +210,26 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		Carta carta = new Carta();
 		BlackJack bkj = new BlackJack();
 		TextoInfo.setText("");
-		
+
 		bkj.iniciarJuego(f, totalBaraja );
-		
-		if (e.getSource() == btnAaaaaaaa) {
-			for (int i = 0; i < totalBaraja.size(); i++) {
-				System.out.println("Carta " + (i + 1) + ": " + totalBaraja.get(i).getNumero());
-			}
-		}
-		
-		
+
 		if (e.getSource() == botonJugar) {
+			//resetear las cartas
+			Crupier1.setIcon(new ImageIcon("imagenes/trasera.jpg"));
+			Carta1.setIcon(new ImageIcon("imagenes/trasera.jpg"));
+			CartaNueva.setIcon(new ImageIcon("imagenes/trasera.jpg"));
+			Crupier2.setIcon(new ImageIcon("imagenes/trasera.jpg"));
+			Crupier2.setVisible(false);
+			Carta2.setVisible(false);
+			Carta3.setVisible(false);
+			NoMostrar1.setVisible(true);
+			NoMostrar2.setVisible(true);
+			
+			//reset contador
+			SumaTotalCrupier1.setVisible(true);
+			sumaTotalReal.setVisible(false);
+			
+			
 			try {
 				cantidad = Integer.parseInt(Apuesta.getText());
 			} catch (NumberFormatException ex) {
@@ -235,8 +239,6 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 			//Integer.parseInt(texto);
 
 			if (cantidad > 0) {
-
-			
 				TextoApostar.setText("¡Buena suerte!");
 				BotonPedir.setEnabled(true);
 				BotonParar.setEnabled(true);
@@ -284,6 +286,7 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 						Crupier1.setIcon(totalBaraja.get(bkj.randomCarta).getImagen());
 					} else if (contadorCartas == 4) {
 						NuevoCrupier.setIcon(totalBaraja.get(bkj.randomCarta).getImagen()); //Copia
+						NuevoCrupier.setVisible(true);
 						Crupier2.setIcon(totalBaraja.get(bkj.randomCarta).getImagen()); //Aun no es visible 
 					}
 
@@ -296,7 +299,7 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 
 				//consultar todas las cartas de fich f baraja.dat
 				System.out.println(contadorCartas);
-				
+
 			}
 		}
 
@@ -307,16 +310,16 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 			System.out.println(numCartasArray);
 			sumaF = SumaTotal.getText();
 			sumaT = Integer.parseInt(sumaF);
-			
-			
+
+
 			sumaT = bkj.traductorDeCartas(totalBaraja, bkj, sumaT);
 			sumaF = Integer.toString(sumaT);
 			SumaTotal.setText(sumaF);
 			System.out.println("Carta obtenida: " + totalBaraja.get(bkj.randomCarta).getNumero());
-			
+
 
 			if ((sumaT = Integer.parseInt(sumaF)) > 21) {
-			    terminarRonda("PERDER");
+				terminarRonda("PERDER");
 			}
 			if (Carta2.isVisible() == false) {
 				Carta2.setVisible(true);				
@@ -338,54 +341,54 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 			sumaF = SumaTotal.getText();
 			SumaTotalCrupier1.setVisible(false);
 			sumaTotalReal.setVisible(true);
-
+			
+			
 			if (Integer.parseInt(sumaF) > Integer.parseInt(sumaFC)) {
 				sumaT = bkj.traductorDeCartas(totalBaraja, bkj, sumaT);
 				sumaFC = Integer.toString(sumaT);
 				sumaTotalReal.setText(sumaFC);
 				System.out.println("Carta obtenida para el Crupier: " + totalBaraja.get(bkj.randomCarta).getNumero());
+				NuevoCrupier.setIcon(totalBaraja.get(bkj.randomCarta).getImagen());	
 				Crupier2.setVisible(true);
-				NuevoCrupier.setIcon(totalBaraja.get(bkj.randomCarta).getImagen());				
-				
+
 				if (Integer.parseInt(sumaF) > Integer.parseInt(sumaFC)) {
-				    terminarRonda("GANAR");
+					terminarRonda("GANAR");
 				} else if (sumaF.equals(sumaFC)) {
-				    terminarRonda("EMPATE");
+					terminarRonda("EMPATE");
 				} else {
-					TextoInfo.setText("¡Has perdido!");
-					Derrota vD=new Derrota();
-					vD.setVisible(true);
-					botonJugar.setEnabled(true);
+					terminarRonda("PERDER");
 				}
 			} else if (sumaF.equals(sumaFC)) {
-				BotonPedir.setEnabled(false);
-				BotonParar.setEnabled(false);
-				TextoInfo.setText("¡Empate!");
-				botonJugar.setEnabled(true);
-			} else {
-				TextoInfo.setText("¡Has perdido!");
-				Derrota vD=new Derrota();
-				vD.setVisible(true);
-				botonJugar.setEnabled(true);
+				terminarRonda("EMPATE");
+			} else if (Integer.parseInt(sumaF) < Integer.parseInt(sumaFC)) {
+				terminarRonda("PERDER");
 			}
 		}
 	}
 	//Centraliza todo lo que pasa cuando acaba una partida en vez de repetir codigo (probad a ver que tal os va)//
 	private void terminarRonda(String resultado) {
-	    BotonPedir.setEnabled(false);
-	    BotonParar.setEnabled(false);
-	    botonJugar.setEnabled(true);
+		BotonPedir.setEnabled(false);
+		BotonParar.setEnabled(false);
+		botonJugar.setEnabled(true);
+		
+		//reset al dinero
+		Apuesta.setText("Introduce la apuesta");
 
-	    if (resultado.equals("GANAR")) {
-	        TextoInfo.setText("¡Has ganado!");
-	        new Victoria().setVisible(true);
+		if (resultado.equals("GANAR")) {
+			TextoInfo.setText("¡Has ganado!");
+			Victoria victoria = new Victoria(this);
+			victoria.setLocation(400, 600); //posición
+			victoria.setVisible(true);
 
-	    } else if (resultado.equals("PERDER")) {
-	        TextoInfo.setText("¡Has perdido!");
-	        new Derrota().setVisible(true);
+		} else if (resultado.equals("PERDER")) {
+			TextoInfo.setText("¡Has perdido!");
+			Derrota derrota = new Derrota(this);
+			derrota.setLocation(400, 600); //posición
+			derrota.setVisible(true);
 
-	    } else {
-	        TextoInfo.setText("¡Empate!");
-	    }
+
+		} else {
+			TextoInfo.setText("¡Empate!");
+		}
 	}
 }
