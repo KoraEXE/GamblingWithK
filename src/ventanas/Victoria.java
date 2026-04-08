@@ -32,6 +32,7 @@ public class Victoria extends JDialog implements ActionListener {
 	public Victoria(JDialog VentanaBlackJack,User elusuario) {
 		super(VentanaBlackJack, "Victoria", true);
 		this.VentanaBlackJack = VentanaBlackJack;
+		this.elusuario = elusuario;
 
 		setAlwaysOnTop(true);
 		setUndecorated(true);

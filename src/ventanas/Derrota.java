@@ -34,6 +34,7 @@ public class Derrota extends JDialog implements ActionListener {
 	public Derrota(JDialog VentanaBlackJack, User elusuario) {
 		 super(VentanaBlackJack, "Derrota", true);
 		 this.VentanaBlackJack = VentanaBlackJack;
+		 this.elusuario = elusuario;
 		 
 		setAlwaysOnTop(true);
 		setUndecorated(true);
@@ -85,7 +86,6 @@ public class Derrota extends JDialog implements ActionListener {
 			sJ.setVisible(true);
 			VentanaBlackJack.dispose();
 			this.dispose();
-			
 			
 		}
 		

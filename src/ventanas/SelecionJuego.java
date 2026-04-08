@@ -31,6 +31,7 @@ public class SelecionJuego extends JDialog implements ActionListener {
 	private JLabel nombreJugador;
 	private JLabel dineroJugador;
 	private JLabel textoDIneroJugador;
+	private JLabel textoNombreJugador;
 	private User elusuario;
 
 	public SelecionJuego(LoginControlador controlador, User elusuario) {
@@ -65,7 +66,7 @@ public class SelecionJuego extends JDialog implements ActionListener {
 		contentPanel.add(nombreJugador);
 		nombreJugador.setText(elusuario.getName());
 		
-		JLabel textoNombreJugador = new JLabel("Jugador:");
+		textoNombreJugador = new JLabel("Jugador:");
 		textoNombreJugador.setFont(new Font("Tahoma", Font.PLAIN, 28));
 		textoNombreJugador.setBounds(23, 21, 115, 44);
 		contentPanel.add(textoNombreJugador);

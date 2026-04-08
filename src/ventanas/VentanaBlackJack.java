@@ -20,6 +20,8 @@ import modelo.Carta;
 import modelo.User;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
@@ -53,6 +55,13 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 	private JLabel Crupier2;
 	private BlackJack juego;
 	private User elusuario;
+	private JLabel nombreJugador;
+	private JLabel dineroJugador;
+	private JLabel textoDIneroJugador;
+	private JLabel textoNombreJugador;
+	private int racha = 1;
+	private int rachaReal = 0;
+	private boolean n21s = false;
 
 	public VentanaBlackJack(User elusuario) {
 		this.elusuario = elusuario;
@@ -61,6 +70,30 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+
+		dineroJugador = new JLabel((String) null);
+		dineroJugador.setHorizontalAlignment(SwingConstants.LEFT);
+		dineroJugador.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		dineroJugador.setBounds(148, 131, 304, 44);
+		contentPanel.add(dineroJugador);
+		dineroJugador.setText(String.valueOf(elusuario.getBalance()));
+
+		textoDIneroJugador = new JLabel("Dinero");
+		textoDIneroJugador.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		textoDIneroJugador.setBounds(23, 131, 115, 44);
+		contentPanel.add(textoDIneroJugador);
+
+		nombreJugador = new JLabel("");
+		nombreJugador.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		nombreJugador.setHorizontalAlignment(SwingConstants.LEFT);
+		nombreJugador.setBounds(148, 76, 304, 44);
+		contentPanel.add(nombreJugador);
+		nombreJugador.setText(elusuario.getName());
+
+		textoNombreJugador = new JLabel("Jugador:");
+		textoNombreJugador.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		textoNombreJugador.setBounds(23, 76, 115, 44);
+		contentPanel.add(textoNombreJugador);
 
 		Crupier2 = new JLabel("");
 		Crupier2.setIcon(new ImageIcon("imagenes/trasera.jpg"));
@@ -103,7 +136,7 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		Carta2.setVisible(false);
 		{
 			JLabel ComboText = new JLabel("Combo:");
-			ComboText.setBounds(29, 35, 76, 22);
+			ComboText.setBounds(23, 35, 82, 30);
 			ComboText.setFont(new Font("Tahoma", Font.BOLD, 18));
 			contentPanel.add(ComboText);
 		}
@@ -194,7 +227,8 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		botonJugar.addActionListener(this);
 		BotonPedir.addActionListener(this);
 		BotonParar.addActionListener(this);
-		
+
+
 
 	}
 
@@ -227,21 +261,26 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 			Carta3.setVisible(false);
 			NoMostrar1.setVisible(true);
 			NoMostrar2.setVisible(true);
-			
+
 			//reset contador
 			SumaTotalCrupier1.setVisible(true);
 			sumaTotalReal.setVisible(false);
-			
-			
-			try {
-				cantidad = Integer.parseInt(Apuesta.getText());
+
+			try {			
+				cantidad = Integer.parseInt(Apuesta.getText());	
 			} catch (NumberFormatException ex) {
-				TextoApostar.setText("Introduce una cantidad valida");
+				JOptionPane.showMessageDialog(null, "Introduce una cantidad valida");
 				return;
 			}
-			//Integer.parseInt(texto);
 
-			if (cantidad > 0) {
+			if (cantidad <= 0) {
+				JOptionPane.showMessageDialog(null, "La cantidad no puede ser 0 o negativo");
+			} else if (elusuario.getBalance() < cantidad) {
+				JOptionPane.showMessageDialog(null, "No tiene esa cantidad de dinero");
+			} else if (elusuario.getBalance() >= cantidad) {
+
+				elusuario.setBalance(elusuario.getBalance() - cantidad);
+				dineroJugador.setText(String.valueOf(elusuario.getBalance()));
 				TextoApostar.setText("¡Buena suerte!");
 				BotonPedir.setEnabled(true);
 				BotonParar.setEnabled(true);
@@ -344,8 +383,8 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 			sumaF = SumaTotal.getText();
 			SumaTotalCrupier1.setVisible(false);
 			sumaTotalReal.setVisible(true);
-			
-			
+
+
 			if (Integer.parseInt(sumaF) > Integer.parseInt(sumaFC)) {
 				sumaT = bkj.traductorDeCartas(totalBaraja, bkj, sumaT);
 				sumaFC = Integer.toString(sumaT);
@@ -354,10 +393,21 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 				NuevoCrupier.setIcon(totalBaraja.get(bkj.randomCarta).getImagen());	
 				Crupier2.setVisible(true);
 
-				if (Integer.parseInt(sumaF) > Integer.parseInt(sumaFC)) {
+				if (Integer.parseInt(sumaFC) > 21) {
 					terminarRonda("GANAR");
+					if (Integer.parseInt(sumaF) == 21 ){
+						n21s = true;
+					}
+				} else if (Integer.parseInt(sumaF) > Integer.parseInt(sumaFC)) {
+					terminarRonda("GANAR");
+					if (Integer.parseInt(sumaF) == 21 ){
+						n21s = true;
+					}
 				} else if (sumaF.equals(sumaFC)) {
 					terminarRonda("EMPATE");
+					if (Integer.parseInt(sumaF) == 21 ){
+						n21s = true;
+					}
 				} else {
 					terminarRonda("PERDER");
 				}
@@ -373,7 +423,8 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		BotonPedir.setEnabled(false);
 		BotonParar.setEnabled(false);
 		botonJugar.setEnabled(true);
-		
+		gestionRYD(resultado);
+
 		//reset al dinero
 		Apuesta.setText("Introduce la apuesta");
 
@@ -393,5 +444,39 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		} else {
 			TextoInfo.setText("¡Empate!");
 		}
+	}
+
+	private void gestionRYD(String resultado) { //Gestion rachas y dinero
+		//Aumenta 0,10 el multiplicador de dinero por cada victoria hasta un maximo de 0,1
+		//Si ha sido blackjack aumentara un 0,25 en vez de 0,10
+		//Despues de 5 ganadas no se sumaran nada mas
+
+		if (racha <= 4 && resultado.equals("GANAR")) {
+
+			if (n21s) {
+				elusuario.setBalance(elusuario.getBalance() + cantidad * (1.2 + 0.1 * racha + 0.25)); //aumenta si es por hacer 21
+			} else {
+				elusuario.setBalance(elusuario.getBalance() + cantidad * (1.2 + 0.1 * racha));
+			}
+
+			if (racha <= 4) {
+				racha ++;
+				rachaReal ++; //para la pagina web
+			}
+			ComboIcon.setText(String.valueOf(rachaReal));
+		} else if (resultado.equals("EMPATE")) {		
+			if (n21s) {
+				elusuario.setBalance(elusuario.getBalance() + cantidad);
+			} else {
+				elusuario.setBalance(elusuario.getBalance() + cantidad);
+			}
+			ComboIcon.setText(String.valueOf(rachaReal));
+		} else if (resultado.equals("PERDER")) {		
+			racha = 1;
+			ComboIcon.setText(String.valueOf(racha));
+			ComboIcon.setText(String.valueOf(rachaReal));
+		}
+		
+		dineroJugador.setText(String.valueOf(elusuario.getBalance()));
 	}
 }
