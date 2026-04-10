@@ -261,6 +261,7 @@ public class VentanaLogin extends JDialog implements ActionListener{
 				// aquí llamar al controlador		    
 			} 
 		}
+		
 
 		if (e.getSource() == mostrarContrasena) {
 			boolean mostrar = mostrarContrasena.isSelected();
