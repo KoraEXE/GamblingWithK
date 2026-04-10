@@ -24,15 +24,16 @@ public class ImplementacionBD implements UsuarioDAO{
 	// Sentencias SQL
 	final String sql1 = "SELECT * FROM USERS WHERE USERNAME = ?";
 	final String SQLCONSULTA = "SELECT * FROM USERS";
-	final String SQLMODIFICAR = "UPDATE USERS SET PASWORD=? WHERE USERNAME=?";
+
 
 	// Sentencias SQL EnProceso
-	final String SQLBORRAR = "DELETE FROM USERS WHERE DNI=?";
+	final String sqlModDinero = "UPDATE USERS SET BALANCE = ? WHERE DNI = ?";
 	final String sqlNomUsuario = "SELECT USERNAME USERS WHERE DNI = ?";
 
 
 	// Sentencias SQL Fucionales
 
+	final String SQLBORRAR = "DELETE FROM USERS WHERE DNI=?";
 	final String sqlInsert = "INSERT INTO USERS VALUES (?,?,?,?,?)";
 	final String sqlDinero = "SELECT BALANCE FROM USERS USERNAME = ? AND PASWORD = ?";
 	final String sqlNombre = "SELECT USERNAME FROM USERS WHERE DNI = ?";
@@ -182,12 +183,24 @@ public class ImplementacionBD implements UsuarioDAO{
 		
 		return ok;
 	}
-
-	@Override
-	public boolean modificarUsuario(User usuario) {
-		// TODO Auto-generated method stub
-
-		return false;
+	
+	public boolean actualizarDinero(User usuario) {
+		boolean ok = false;	
+		this.openConnection();
+		try {
+		stmt = con.prepareStatement(sqlModDinero);
+		stmt.setDouble(1, usuario.getBalance());
+		stmt.setString(2, usuario.getDni());
+		if (stmt.executeUpdate() > 0) {
+			ok = true;
+		}
+		stmt.close();
+		con.close();
+	} catch (SQLException e) {
+		System.out.println("Error al verificar credenciales: " + e.getMessage());
+	}  
+		
+		return ok;
 	}
 
 	@Override

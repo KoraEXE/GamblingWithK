@@ -14,6 +14,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controlador.LoginControlador;
 import juego.BlackJack;
 import modelo.Baraja;
 import modelo.Carta;
@@ -59,11 +60,13 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 	private JLabel dineroJugador;
 	private JLabel textoDIneroJugador;
 	private JLabel textoNombreJugador;
+	private LoginControlador cont;
 	private int racha = 1;
 	private int rachaReal = 0;
 	private boolean n21s = false;
 
-	public VentanaBlackJack(User elusuario) {
+	public VentanaBlackJack(LoginControlador cont, User elusuario) {
+		this.cont = cont;
 		this.elusuario = elusuario;
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -478,5 +481,7 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		}
 		
 		dineroJugador.setText(String.valueOf(elusuario.getBalance()));
+		System.out.println(elusuario.getBalance());
+		cont.actualizarDinero(elusuario);
 	}
 }

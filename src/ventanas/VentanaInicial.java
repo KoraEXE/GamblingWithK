@@ -44,6 +44,7 @@ public class VentanaInicial extends JFrame implements ActionListener{
 	private User elusuario = new User();
 
 	public VentanaInicial(LoginControlador cont) {
+		cont = new LoginControlador();
 		this.cont = cont;
 		setTitle("Ventana Inicial");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/Isr.jpg"));
@@ -120,40 +121,40 @@ public class VentanaInicial extends JFrame implements ActionListener{
 		Hablar.setHorizontalAlignment(SwingConstants.CENTER);
 		Hablar.setFont(new Font("Microsoft YaHei Light", Font.ITALIC, 20));
 		contentPane.add(Hablar);
-		
+
 		TextoExtra = new JLabel("Game developed by Kora, Martin, Enio and Aritz\r\n Try to dont lose all your money or soul");
 		TextoExtra.setFont(new Font("Tahoma", Font.ITALIC, 16));
 		TextoExtra.setBounds(1036, 627, 642, 142);
 		contentPane.add(TextoExtra);
-		
+
 		nube = new JLabel("");
 		nube.setIcon(new ImageIcon("imagenes/nube hablarV2.png"));
 		nube.setBounds(617, 72, 298, 99);
 		contentPane.add(nube);
 		nube.setVisible(false);
-		
-		btnPlay.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseEntered(MouseEvent e) {
-		    	//cambiar la imagen del JLabel al pasar el mouse sobre el botón
-		    	
-		    	lblImagen.setIcon(new ImageIcon("imagenes/selecionandoV1.png"));
-		        btnPlay.setText("LET'S WIN SOME MONEY");
-		    	btnPlay.setBounds(1219, 555, 261, 60);
-		    	nube.setVisible(false);
-		    	Hablar.setText("");
-		    }
 
-		    @Override
-		    public void mouseExited(MouseEvent e) {
-		    	lblImagen.setIcon(new ImageIcon("imagenes/decepcioandoV3.png"));
-		    	btnPlay.setBounds(1246, 556, 210, 60);
-		        btnPlay.setText("Play");		        
-		    }
+		btnPlay.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				//cambiar la imagen del JLabel al pasar el mouse sobre el botón
+
+				lblImagen.setIcon(new ImageIcon("imagenes/selecionandoV1.png"));
+				btnPlay.setText("LET'S WIN SOME MONEY");
+				btnPlay.setBounds(1219, 555, 261, 60);
+				nube.setVisible(false);
+				Hablar.setText("");
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblImagen.setIcon(new ImageIcon("imagenes/decepcioandoV3.png"));
+				btnPlay.setBounds(1246, 556, 210, 60);
+				btnPlay.setText("Play");		        
+			}
 		});
 	}
-	
-	
+
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -176,7 +177,6 @@ public class VentanaInicial extends JFrame implements ActionListener{
 
 		if (e.getSource() == btnPlay) {
 			String dni;
-			
 			String usuario = campoNombre.getText();
 			char[] password = null;
 			if (campoContrasena.isVisible()) {
@@ -185,23 +185,29 @@ public class VentanaInicial extends JFrame implements ActionListener{
 			if (usuario.equals("") || password.equals("")) {
 				nube.setVisible(true);
 				Hablar.setText("Rellena todos los campos");
-			} else if (cont.comprobarUsuario(new User(campoNombre.getText(), new String(campoContrasena.getPassword())))) {
-				dni = cont.obtenerDNI(new User(campoNombre.getText(), new String(campoContrasena.getPassword()))); //Obtiene el DNI del usuario para futuros usos
-				elusuario.setDni(dni);
+			} else {
+
+			
+				password = campoContrasena.getPassword();
 				elusuario.setName(usuario);
 				elusuario.setPassword(String.valueOf(password));
-				elusuario.setBalance(cont.obtenerDinero(new User(campoNombre.getText(), new String(campoContrasena.getPassword()))));
-		
 
-				Hablar.setText("Datos correctos");
-				
-				SelecionJuego v2=new SelecionJuego(cont, elusuario);		
-				v2.setVisible(true);
-				this.dispose();
-			} else {
-				nube.setVisible(true);
-				Hablar.setText("Usuario no registrado");
+
+				if (cont.comprobarUsuario(elusuario)) {
+					
+					dni = cont.obtenerDNI(elusuario); //Obtiene el DNI del usuario para futuros usos
+					elusuario.setDni(dni);					
+					elusuario.setBalance(cont.obtenerDinero(elusuario));
+					Hablar.setText("Datos correctos");
+					SelecionJuego v2=new SelecionJuego(cont, elusuario);		
+					v2.setVisible(true);
+					this.dispose();
+				} else {
+					nube.setVisible(true);
+					Hablar.setText("Usuario no registrado");
+				}
 			}
 		}
 	}
 }
+

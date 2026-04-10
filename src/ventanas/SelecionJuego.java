@@ -140,7 +140,7 @@ public class SelecionJuego extends JDialog implements ActionListener {
 		}
 		
 		if (e.getSource()==blackJack) {
-			VentanaBlackJack vI=new VentanaBlackJack(elusuario);
+			VentanaBlackJack vI=new VentanaBlackJack(cont, elusuario);
 			vI.setVisible(true);
 			this.dispose();
 		}

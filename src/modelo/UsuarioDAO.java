@@ -9,7 +9,7 @@ public interface UsuarioDAO {
 	public String obtenerNombre (User usuario);
 	public boolean insertarUsuario(User usuario);
 	public boolean borrarUsuario(User usuario);
-	public boolean modificarUsuario(User usuario);
+	public boolean actualizarDinero(User usuario);
 	public ArrayList<String> mostrarUsuario(User usuario);
 	
 }

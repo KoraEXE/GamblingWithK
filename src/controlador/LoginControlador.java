@@ -37,4 +37,8 @@ public class LoginControlador {
 	public boolean borrarUsuario (User usuario) {
 		return dao.borrarUsuario(usuario);
 	}
+	
+	public boolean actualizarDinero (User usuario) {
+		return dao.actualizarDinero(usuario);
+	}
 }
