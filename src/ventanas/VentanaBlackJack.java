@@ -244,6 +244,11 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		String sumaF = "0"; //suma final
 		String sumaFC = "0";//suma final crupier
 		int contadordecartas = 0;
+		
+		
+		//Para las stats
+		
+		
 		int numCartasArray =0;
 		File f = new File("baraja.dat");
 		ArrayList<Carta> totalBaraja = new ArrayList<>();

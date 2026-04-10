@@ -86,7 +86,6 @@ public class Derrota extends JDialog implements ActionListener {
 			sJ.setVisible(true);
 			VentanaBlackJack.dispose();
 			this.dispose();
-			
 		}
 		
 		if(e.getSource()==SeguirJugando) {
