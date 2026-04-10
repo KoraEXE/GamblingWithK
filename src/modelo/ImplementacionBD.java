@@ -29,7 +29,7 @@ public class ImplementacionBD implements UsuarioDAO{
 
 	// Sentencias SQL EnProceso
 
-	final String sqlInsert = "INSERT INTO USERS VALUES (?,?,?,?)";
+	final String sqlInsert = "INSERT INTO USERS VALUES (?,?,?,?,?)";
 	final String sqlNomUsuario = "SELECT USERNAME USERS WHERE DNI = ?";
 
 
@@ -155,7 +155,8 @@ public class ImplementacionBD implements UsuarioDAO{
 				stmt.setString(1, usuario.getDni());
 				stmt.setString(2, usuario.getName());
 				stmt.setString(3, usuario.getPassword());
-				stmt.setDouble(4, usuario.getBalance());
+				stmt.setDate(4, java.sql.Date.valueOf(usuario.getDate_of_birth())); //Para pasar el Date a LocalDate
+				stmt.setDouble(5, usuario.getBalance());
 				if (stmt.executeUpdate() > 0) {
 					bien = true;
 				}

@@ -4,15 +4,21 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import controlador.LoginControlador;
+import modelo.MenorDeEdadException;
 import modelo.User;
 
 import java.awt.Font;
@@ -41,6 +47,7 @@ public class VentanaLogin extends JDialog implements ActionListener{
 	private String dni;
 	private User elusuario;
 	private JTextField campoDNI;
+	private JTextField campoFechaNacimiento;
 
 	public VentanaLogin(LoginControlador controlador, User elusuario) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/R.png"));
@@ -94,7 +101,7 @@ public class VentanaLogin extends JDialog implements ActionListener{
 
 		TextRespuesta = new JLabel("");
 		TextRespuesta.setHorizontalAlignment(SwingConstants.CENTER);
-		TextRespuesta.setBounds(519, 454, 274, 35);
+		TextRespuesta.setBounds(527, 480, 274, 35);
 		contentPane.add(TextRespuesta);
 
 		JLabel TextRegistrar = new JLabel("Register");
@@ -107,24 +114,24 @@ public class VentanaLogin extends JDialog implements ActionListener{
 		JLabel lblImagen = new JLabel(lblimagen);
 		lblImagen.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImagen.setBounds(795, 499, 325, 314);
+		lblImagen.setBounds(804, 564, 325, 314);
 		contentPane.add(lblImagen);
 
 		JLabel TextBalance = new JLabel("Balance:");
 		TextBalance.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		TextBalance.setBounds(697, 381, 138, 40);
+		TextBalance.setBounds(697, 427, 138, 40);
 		contentPane.add(TextBalance);
 
 		comboBox = new JComboBox();
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"-- Select Import --","100","200","300","400","500","600","700","800","900","1000"}));
 		comboBox.setSelectedIndex(0);
-		comboBox.setBounds(852, 388, 206, 31);
+		comboBox.setBounds(852, 434, 206, 31);
 		contentPane.add(comboBox);
 
 		btnLogin = new JButton("Login");
 		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnLogin.setBounds(836, 454, 241, 35);
+		btnLogin.setBounds(838, 492, 241, 35);
 		contentPane.add(btnLogin);
 
 		JLabel TextDNI = new JLabel("DNI:");
@@ -137,6 +144,17 @@ public class VentanaLogin extends JDialog implements ActionListener{
 		campoDNI.setColumns(10);
 		campoDNI.setBounds(852, 250, 206, 35);
 		contentPane.add(campoDNI);
+
+		JLabel TextFechaNacimiento = new JLabel("Birth Date:");
+		TextFechaNacimiento.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		TextFechaNacimiento.setBounds(697, 390, 138, 40);
+		contentPane.add(TextFechaNacimiento);
+
+		campoFechaNacimiento = new JTextField();
+		campoFechaNacimiento.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		campoFechaNacimiento.setColumns(10);
+		campoFechaNacimiento.setBounds(852, 388, 206, 35);
+		contentPane.add(campoFechaNacimiento);
 		btnLogin.addActionListener(this);
 
 		if (comboBox.getSelectedIndex() == 0) {
@@ -145,6 +163,17 @@ public class VentanaLogin extends JDialog implements ActionListener{
 			TextRespuesta.setText("");
 		}
 	}
+	
+	 public void comprobarMayorEdad(LocalDate fechaNacimiento) throws MenorDeEdadException {
+
+	        LocalDate hoy = LocalDate.now();
+
+	        LocalDate fechaMas18 = fechaNacimiento.plusYears(18);
+
+	        if (fechaMas18.isAfter(hoy)) {
+	            throw new MenorDeEdadException("El usuario es menor de edad");
+	        }
+	    }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -161,25 +190,45 @@ public class VentanaLogin extends JDialog implements ActionListener{
 
 		if (e.getSource() == btnLogin) {
 
-			if (campoDNI.equals("") || campoUsuario.equals("") || comboBox.getSelectedIndex() == 0  || campoContrasena.equals("")) {
+			if (campoDNI.equals("") || campoUsuario.equals("") || comboBox.getSelectedIndex() == 0  || campoContrasena.equals("") || campoFechaNacimiento.equals("")) {
 				TextRespuesta.setText("Rellena todos los campos");
 			} else {
+
+				LocalDate fechas;
+				String fecha = campoFechaNacimiento.getText();
+
+				DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+				try {
+					fechas = LocalDate.parse(fecha, formato);
+
+		            comprobarMayorEdad(fechas);
+
+		            JOptionPane.showMessageDialog(null, "Usuario válido, es mayor de edad");
+
+		        } catch (DateTimeParseException ex) {
+		            JOptionPane.showMessageDialog(null, "Formato incorrecto (dd/MM/yyyy)");
+
+		        } catch (MenorDeEdadException ex) {
+		            JOptionPane.showMessageDialog(null, ex.getMessage());
+		        }
+				
+				fechas = LocalDate.parse(fecha, formato);
+				
+				System.out.println(campoDNI.getText());
+				System.out.println(campoUsuario.getText());
+				System.out.println(String.valueOf(campoContrasena.getPassword()));
+				System.out.println(comboBox.getSelectedIndex());
+				System.out.println(fechas);
 
 				elusuario.setDni(campoDNI.getText());
 				elusuario.setName(campoUsuario.getText());
 				elusuario.setPassword(String.valueOf(campoContrasena.getPassword()));
-				elusuario.setBalance(comboBox.getSelectedIndex());		
-
-				elusuario.setDni(dni);
-
+				elusuario.setBalance(comboBox.getSelectedIndex());
+				elusuario.setDate_of_birth(fechas);
+				
 				cont.insertarUsuario(elusuario);
-
-
-
 				TextRespuesta.setText("Datos correctos");
-
-
-
 
 				VentanaInicial vl=new VentanaInicial(cont);
 				vl.setVisible(true);
