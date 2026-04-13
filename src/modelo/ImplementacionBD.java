@@ -34,11 +34,13 @@ public class ImplementacionBD implements UsuarioDAO{
 	// Sentencias SQL Fucionales
 
 	final String SQLBORRAR = "DELETE FROM USERS WHERE DNI=?";
-	final String sqlInsert = "INSERT INTO USERS VALUES (?,?,?,?,?)";
+	final String sqlInsert = "INSERT INTO USERS VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 	final String sqlDinero = "SELECT BALANCE FROM USERS USERNAME = ? AND PASWORD = ?";
 	final String sqlNombre = "SELECT USERNAME FROM USERS WHERE DNI = ?";
 	final String SQL = "SELECT * FROM USERS WHERE USERNAME = ? AND PASWORD = ?";
 	final String sqlDNI = "SELECT DNI FROM USERS WHERE USERNAME = ? AND PASWORD = ?"; //Para usarlo como ancla del usuario en el resto de ventanas hasta que decida des loggearse
+	final String sqlObtenerStats = "SELECT TIMES_PLAYED, WINS, LOSSES, MAX_COMBO, TOTAL21S, TOTAL_LOSSES, TOTAL_WINS FROM USERS WHERE DNI = ?";
+	final String sqlActualizarStats = "UPDATE USERS SET TIMES_PLAYED = ?, WINS = ?, LOSSES = ?, MAX_COMBO = ?, TOTAL21S = ?, TOTAL_LOSSES = ?, TOTAL_WINS = ? WHERE DNI = ?";
 
 
 	// Para la conexi n utilizamos un fichero de configuaraci n, config que
@@ -122,7 +124,6 @@ public class ImplementacionBD implements UsuarioDAO{
 		return nombre;
 	}
 
-
 	public int obtenerDinero(User usuario) {
 		int dinero = 0;
 		this.openConnection();
@@ -146,23 +147,31 @@ public class ImplementacionBD implements UsuarioDAO{
 	public boolean insertarUsuario(User usuario) {
 		boolean bien = false;
 		this.openConnection();
-		 try {
-				// Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
+		try {
+			// Preparamos la sentencia stmt con la conexion y sentencia sql correspondiente
 
-				stmt = con.prepareStatement(sqlInsert);
-				stmt.setString(1, usuario.getDni());
-				stmt.setString(2, usuario.getName());
-				stmt.setString(3, usuario.getPassword());
-				stmt.setDate(4, java.sql.Date.valueOf(usuario.getDate_of_birth())); //Para pasar el Date a LocalDate
-				stmt.setDouble(5, usuario.getBalance());
-				if (stmt.executeUpdate() > 0) {
-					bien = true;
-				}
-				stmt.close();
-				con.close();
-			} catch (SQLException e) {
-				System.out.println("Error al verificar credenciales: " + e.getMessage());
-			}  
+			stmt = con.prepareStatement(sqlInsert);
+			stmt.setString(1, usuario.getDni());
+			stmt.setString(2, usuario.getName());
+			stmt.setString(3, usuario.getPassword());
+			stmt.setDate(4, java.sql.Date.valueOf(usuario.getDate_of_birth())); //Para pasar el Date a LocalDate
+			stmt.setInt(5, 0);
+			stmt.setInt(6, 0);
+			stmt.setInt(7, 0);
+			stmt.setInt(8, 0);
+			stmt.setInt(9, 0);
+			stmt.setDouble(10, 0);
+			stmt.setDouble(11, 0);
+			stmt.setDouble(12, usuario.getBalance());
+
+			if (stmt.executeUpdate() > 0) {
+				bien = true;
+			}
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+		}  
 		return bien;
 	}
 
@@ -170,38 +179,94 @@ public class ImplementacionBD implements UsuarioDAO{
 		boolean ok = false;	
 		this.openConnection();
 		try {
-		stmt = con.prepareStatement(SQLBORRAR);
-		stmt.setString(1, usuario.getDni());
-		if (stmt.executeUpdate() > 0) {
-			ok = true;
-			
-		}
-		stmt.close();
-		con.close();
-	} catch (SQLException e) {
-		System.out.println("Error al verificar credenciales: " + e.getMessage());
-	}  
-		
+			stmt = con.prepareStatement(SQLBORRAR);
+			stmt.setString(1, usuario.getDni());
+			if (stmt.executeUpdate() > 0) {
+				ok = true;
+
+			}
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+		}  
+
 		return ok;
 	}
-	
+
 	public boolean actualizarDinero(User usuario) {
 		boolean ok = false;	
 		this.openConnection();
 		try {
-		stmt = con.prepareStatement(sqlModDinero);
-		stmt.setDouble(1, usuario.getBalance());
-		stmt.setString(2, usuario.getDni());
-		if (stmt.executeUpdate() > 0) {
-			ok = true;
-		}
-		stmt.close();
-		con.close();
-	} catch (SQLException e) {
-		System.out.println("Error al verificar credenciales: " + e.getMessage());
-	}  
-		
+			stmt = con.prepareStatement(sqlModDinero);
+			stmt.setDouble(1, usuario.getBalance());
+			stmt.setString(2, usuario.getDni());
+			if (stmt.executeUpdate() > 0) {
+				ok = true;
+			}
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Error al verificar credenciales: " + e.getMessage());
+		}  
 		return ok;
+	}
+	
+	public boolean actualuizarStadisticas(User usuario) {
+	    boolean ok = false;
+	    this.openConnection();
+
+	    try {
+	        stmt = con.prepareStatement(sqlActualizarStats);
+
+	        stmt.setInt(1, usuario.getVecesJugadas());
+	        stmt.setInt(2, usuario.getVecesGanadas());
+	        stmt.setInt(3, usuario.getVecesPerdidas());
+	        stmt.setInt(4, usuario.getMaxCombo());
+	        stmt.setInt(5, usuario.getTotal21s());
+	        stmt.setDouble(6, usuario.getTotalPerdido());
+	        stmt.setDouble(7, usuario.getTotalGanado());
+	        stmt.setString(8, usuario.getDni());
+	        if (stmt.executeUpdate() > 0) {
+	            ok = true;
+	        }
+	        stmt.close();
+	        con.close();
+
+	    } catch (SQLException e) {
+	        System.out.println("Error al actualizar estadísticas: " + e.getMessage());
+	    }
+
+	    return ok;
+	}
+
+	public boolean obtenerStadisticas(User usuario) {
+	    boolean ok = false;
+	    this.openConnection();
+
+	    try {
+	        stmt = con.prepareStatement(sqlObtenerStats);
+	        stmt.setString(1, usuario.getDni());
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	            // 🔹 Guardas los datos en el objeto usuario
+	            usuario.setVecesJugadas(rs.getInt("TIMES_PLAYED"));
+	            usuario.setVecesGanadas(rs.getInt("WINS"));
+	            usuario.setVecesPerdidas(rs.getInt("LOSSES"));
+	            usuario.setMaxCombo(rs.getInt("MAX_COMBO"));
+	            usuario.setTotal21s(rs.getInt("TOTAL21S"));
+	            usuario.setTotalPerdido(rs.getDouble("TOTAL_LOSSES"));
+	            usuario.setTotalGanado(rs.getDouble("TOTAL_WINS"));
+	            ok = true;
+	        }
+	        rs.close();
+	        stmt.close();
+	        con.close();
+
+	    } catch (SQLException e) {
+	        System.out.println("Error al obtener estadísticas: " + e.getMessage());
+	    }
+	    return ok;
 	}
 
 	@Override

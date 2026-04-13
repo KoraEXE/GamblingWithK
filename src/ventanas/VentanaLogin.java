@@ -196,8 +196,7 @@ public class VentanaLogin extends JDialog implements ActionListener{
 
 			if (campoDNI.equals("") || campoUsuario.equals("") || comboBox.getSelectedIndex() == 0  || campoContrasena.equals("") || campoFechaNacimiento.equals("")) {
 				TextRespuesta.setText("Rellena todos los campos");
-			} else {
-
+			} else if (campoDNI.getText().matches("^[0-9]{8}[A-Z]$")) {
 				LocalDate fechas;
 				String fecha = campoFechaNacimiento.getText();
 
@@ -255,7 +254,9 @@ public class VentanaLogin extends JDialog implements ActionListener{
 				vl.setVisible(true);
 				this.dispose();
 				// aquí llamar al controlador		    
-			} 
+			} else {
+				 JOptionPane.showMessageDialog(null, "Formato incorrecto Ejem: (0000000A) ");
+			}
 		}
 		
 

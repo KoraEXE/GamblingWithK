@@ -61,10 +61,10 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 	private JLabel textoDIneroJugador;
 	private JLabel textoNombreJugador;
 	private LoginControlador cont;
-	private int racha = 1;
+	private int racha = 0;
 	private int rachaReal = 0;
 	private boolean n21s = false;	
-	
+
 	//Stats para mostrar
 	private int vecesJugadas = 0; //realizado
 	private int vecesGanadas = 0;
@@ -255,11 +255,11 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		String sumaF = "0"; //suma final
 		String sumaFC = "0";//suma final crupier
 		int contadordecartas = 0;
-		
-		
+
+
 		//Para las stats
-		
-		
+
+
 		int numCartasArray =0;
 		File f = new File("baraja.dat");
 		ArrayList<Carta> totalBaraja = new ArrayList<>();
@@ -271,12 +271,14 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 
 		if (e.getSource() == botonJugar) {
 			
+			obtnerDatosStats();
+
 			//Hacer que obtenga los datos de la base de datos
-			
+
 			vecesJugadas ++;
-			
+
 			//añadir a la base de datos
-			
+
 			//resetear las cartas
 			Crupier1.setIcon(new ImageIcon("imagenes/trasera.jpg"));
 			Carta1.setIcon(new ImageIcon("imagenes/trasera.jpg"));
@@ -456,23 +458,13 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 
 		if (resultado.equals("GANAR")) {
 			
-			//Hacer que obtenga los datos de la base de datos
-			
-			vecesGanadas ++;
-			
-			//añadir a la base de datos
 			TextoInfo.setText("¡Has ganado!");
 			Victoria victoria = new Victoria(this, elusuario);
 			victoria.setLocation(350, 400); //posición
 			victoria.setVisible(true);
 
 		} else if (resultado.equals("PERDER")) {
-			
-			//Hacer que obtenga los datos de la base de datos
-			
-			vecesPerdidas ++;
-			
-			//añadir a la base de datos
+
 			TextoInfo.setText("¡Has perdido!");
 			Derrota derrota = new Derrota(this, elusuario);
 			derrota.setLocation(350, 400); //posición
@@ -485,47 +477,36 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 	}
 
 	private void gestionRYD(String resultado) { 
-		
-		
+
+
 		//Gestion rachas y dinero
 		//Aumenta 0,10 el multiplicador de dinero por cada victoria hasta un maximo de 0,1
 		//Si ha sido blackjack aumentara un 0,25 en vez de 0,10
 		//Despues de 5 ganadas no se sumaran nada mas
-
-		if (racha <= 4 && resultado.equals("GANAR")) {
+		
+		if (resultado.equals("GANAR")) {
+		} else if (resultado.equals("PERDER")) {
+			vecesPerdidas ++;
+		}
+			
+		if (resultado.equals("GANAR")) {
 
 			if (n21s) {
-				elusuario.setBalance(elusuario.getBalance() + cantidad * (1.2 + 0.1 * racha + 0.25)); //aumenta si es por hacer 21
-				
-				//Hacer que obtenga los datos de la base de datos
-				
-				total21s ++; 
-				
-				//añadir a la base de datos
-				
+				elusuario.setBalance(elusuario.getBalance() + cantidad * (1.5 + 0.2 * racha + 0.50)); //aumenta si es por hacer 21
+				total21s ++;
+				totalGanado = totalGanado + cantidad;
 			} else {
-				elusuario.setBalance(elusuario.getBalance() + cantidad * (1.2 + 0.1 * racha));
-				
-				//Hacer que obtenga los datos de la base de datos
-				
-			
-				totalGanado ++;
-				
-				//añadir a la base de datos
+				elusuario.setBalance(elusuario.getBalance() + cantidad * (1.5 + 0.2 * racha));
+				totalGanado = totalGanado + cantidad;
 			}
+			
+			rachaReal ++; //para la pagina web	
+			maxCombo = rachaReal;
 
 			if (racha <= 4) { 
 				racha ++;
-				rachaReal ++; //para la pagina web
-				
-				//Hacer que obtenga los datos de la base de datos
-				
-				maxCombo = rachaReal;
-				totalPerdido ++;
-				totalGanado ++;
-				
-				//añadir a la base de datos
 			}
+			
 			ComboIcon.setText(String.valueOf(rachaReal));
 		} else if (resultado.equals("EMPATE")) {		
 			if (n21s) {
@@ -535,19 +516,45 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 			}
 			ComboIcon.setText(String.valueOf(rachaReal));
 		} else if (resultado.equals("PERDER")) {
-			
+
 			//Hacer que obtenga los datos de la base de datos
-			
+
 			totalPerdido = totalPerdido - cantidad ;
-			
+
 			//añadir a la base de datos
-			racha = 1;
+			racha = 0;
+			rachaReal = 0;
 			ComboIcon.setText(String.valueOf(racha));
 			ComboIcon.setText(String.valueOf(rachaReal));
 		}
-		
+
 		dineroJugador.setText(String.valueOf(elusuario.getBalance()));
 		System.out.println(elusuario.getBalance());
+		actualizarDatosStats();
 		cont.actualizarDinero(elusuario);
+	}
+
+	private void obtnerDatosStats() { 
+		cont.obtenerStadisticas(elusuario);
+		vecesJugadas = elusuario.getVecesJugadas();
+		vecesGanadas = elusuario.getVecesGanadas();
+		vecesPerdidas = elusuario.getVecesPerdidas();
+		maxCombo = elusuario.getMaxCombo();
+		total21s = elusuario.getTotal21s();
+		totalPerdido = elusuario.getTotalPerdido();
+		totalGanado = elusuario.getTotalGanado();	
+		
+	}
+	
+	private void actualizarDatosStats() {
+		elusuario.setVecesJugadas(vecesJugadas);
+		elusuario.setVecesGanadas(vecesGanadas);
+		elusuario.setVecesPerdidas(vecesPerdidas);
+		elusuario.setMaxCombo(maxCombo);
+		elusuario.setTotal21s(total21s);
+		elusuario.setTotalPerdido(totalPerdido);
+		elusuario.setTotalGanado(totalGanado);
+		cont.actualuizarStadisticas(elusuario);
+
 	}
 }

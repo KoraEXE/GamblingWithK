@@ -11,5 +11,6 @@ public interface UsuarioDAO {
 	public boolean borrarUsuario(User usuario);
 	public boolean actualizarDinero(User usuario);
 	public ArrayList<String> mostrarUsuario(User usuario);
-	
+	public boolean obtenerStadisticas(User usuario);
+	public boolean actualuizarStadisticas(User usuario);
 }

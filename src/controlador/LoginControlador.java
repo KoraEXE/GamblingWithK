@@ -41,4 +41,12 @@ public class LoginControlador {
 	public boolean actualizarDinero (User usuario) {
 		return dao.actualizarDinero(usuario);
 	}
+	
+	public boolean obtenerStadisticas (User usuario) {
+		return dao.obtenerStadisticas(usuario);
+	}
+	
+	public boolean actualuizarStadisticas (User usuario) {
+		return dao.actualuizarStadisticas(usuario);
+	}
 }

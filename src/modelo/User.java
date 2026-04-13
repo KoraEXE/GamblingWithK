@@ -24,6 +24,16 @@ public class User {
 		this.date_of_birth = date_of_birth;
 	}
 	
+	public User(int vecesJugadas, int vecesGanadas, int vecesPerdidas, int maxCombo, int total21s, double totalPerdido, double totalGanado) {
+		this.vecesJugadas = vecesJugadas;
+		this.vecesGanadas = vecesGanadas;
+		this.vecesPerdidas = vecesPerdidas;
+		this.maxCombo = maxCombo;
+		this.total21s = total21s;
+		this.totalPerdido = totalPerdido;
+		this.totalGanado = totalGanado;
+	}
+	
 	public User(String name, String password) {
 		this.name = name;
 		this.password = password;
@@ -140,9 +150,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [dni=" + dni + ", name=" + name + ", password=" + password + ", balance=" + balance
-				+ ", date_of_birth=" + date_of_birth + ", vecesJugadas=" + vecesJugadas + ", vecesGanadas="
-				+ vecesGanadas + ", vecesPerdidas=" + vecesPerdidas + ", maxCombo=" + maxCombo + ", total21s="
-				+ total21s + ", totalPerdido=" + totalPerdido + ", totalGanado=" + totalGanado + "]";
+		return "User [vecesJugadas=" + vecesJugadas + ", vecesGanadas=" + vecesGanadas + ", vecesPerdidas="
+				+ vecesPerdidas + ", maxCombo=" + maxCombo + ", total21s=" + total21s + ", totalPerdido=" + totalPerdido
+				+ ", totalGanado=" + totalGanado + "]";
 	}
 }

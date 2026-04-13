@@ -115,7 +115,7 @@ public class VentanaInicial extends JFrame implements ActionListener{
 
 		mostrarContrasena = new JCheckBox("See Password");
 		mostrarContrasena.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		mostrarContrasena.setBounds(1516, 341, 234, 48);
+		mostrarContrasena.setBounds(1316, 343, 234, 48);
 		mostrarContrasena.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(mostrarContrasena);
 		mostrarContrasena.addActionListener(this);
