@@ -20,8 +20,17 @@ Con un buen menu intuitivo y facil de usar con todo tipo de ventanas decoradas y
 
 #### 🛠️ Tecnologías:
 
-Lenguaje usado: Java
+Lenguaje usado: Java 8
 
-Base de datos usada: MYSQL
+Base de datos usada: MYSQL 8.0.0
+
+#### 💡 Dependencias:
+mysql-connector-java-8.0.15.jar
+
+#### 🚘 Base de datos:
+Kirk_Kasinoa.sql
+
+#### 📥 Clonar el repositorio 
+git clone https://github.com/KoraEXE/GamblingWithKirk.git
 
 #### 🎴Número de contribuidores/trabajadores del proyecto: 4.
