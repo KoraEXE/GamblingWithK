@@ -88,6 +88,7 @@ public class SelecionJuego extends JDialog implements ActionListener {
 			stats = new JButton("2. STATS");
 			stats.setBounds(582, 478, 357, 71);
 			contentPanel.add(stats);
+			this.stats.addActionListener(this);
 		}
 		{
 			cerrarSesion = new JButton("3. CERRAR SESIÓN");
@@ -140,6 +141,12 @@ public class SelecionJuego extends JDialog implements ActionListener {
 		
 		if (e.getSource()==blackJack) {
 			VentanaBlackJack vI=new VentanaBlackJack(cont, elusuario);
+			vI.setVisible(true);
+			this.dispose();
+		}
+		
+		if (e.getSource()==stats) {
+			VentanaEstadisticas vI=new VentanaEstadisticas(cont, elusuario);
 			vI.setVisible(true);
 			this.dispose();
 		}

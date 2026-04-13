@@ -155,7 +155,7 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 			contentPanel.add(ComboText);
 		}
 
-		ComboIcon = new JLabel("x1");
+		ComboIcon = new JLabel("?");
 		ComboIcon.setHorizontalAlignment(SwingConstants.CENTER);
 		ComboIcon.setBounds(103, 12, 68, 69);
 		ComboIcon.setFont(new Font("Tahoma", Font.PLAIN, 58));
