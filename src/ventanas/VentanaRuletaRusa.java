@@ -12,6 +12,8 @@ import javax.swing.border.EmptyBorder;
 import controlador.LoginControlador;
 import modelo.User;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
@@ -155,14 +157,14 @@ public class VentanaRuletaRusa extends JFrame implements ActionListener {
 
 		this.btnRevolver.addActionListener(this);
 		cont.obtenerStadisticas(elusuario);
-		
+
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+
 
 		if(e.getSource()==btnBala1) {
 			btnBala1.setEnabled(false);
@@ -241,11 +243,10 @@ public class VentanaRuletaRusa extends JFrame implements ActionListener {
 			btnRevolver.setEnabled(true);
 			respuesta = 6;
 		}
+		
 
 		if(e.getSource()==btnRevolver) {
-			int numeroR = 1; //para probar
-			
-			//int numeroR = (int)(Math.random() * 6) + 1;
+			int numeroR = (int)(Math.random() * 6) + 1;
 			System.out.println(numeroR);
 			System.out.println(respuesta);
 
@@ -256,32 +257,39 @@ public class VentanaRuletaRusa extends JFrame implements ActionListener {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						btnRevolver.setIcon(new ImageIcon("imagenes/revolverLast.jpg"));
-						HasMuerto sJ=new HasMuerto(this, cont, elusuario);
+						HasMuerto sJ=new HasMuerto(cont, elusuario);
 						sJ.setVisible(true);
-						HasMuerto.setLocation(350, 400);
-
+						accion();
+						
 					}
 				});
+				
 				timer.setRepeats(false);
 				timer.start();
 
 			} else {
-				
+				elusuario.setBalance(100);
+				cont.actualuizarStadisticas(elusuario);
+				JOptionPane.showMessageDialog(null, "Mira tu dinero");
 				btnRevolver.setIcon(new ImageIcon("imagenes/revolverGif.gif"));
-				Timer timer = new Timer(800, new ActionListener() {
+				Timer timer = new Timer(260, new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						btnRevolver.setIcon(new ImageIcon("imagenes/revolverLast.jpg"));
-
 						SelecionJuego sJ=new SelecionJuego(cont, elusuario);
 						sJ.setVisible(true);
-
-					}
-				});
+						accion();
+					}				
+				});	
 				timer.setRepeats(false);
 				timer.start();
 				
 			}
-		}
+			
+		}	
+	}
+	
+	private void accion() {
+		this.dispose();	
 	}
 }

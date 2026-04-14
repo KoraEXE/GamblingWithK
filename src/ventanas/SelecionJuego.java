@@ -152,12 +152,7 @@ public class SelecionJuego extends JDialog implements ActionListener {
 			this.dispose();
 		}
 		
-		if (e.getSource()==pray) {
-			VentanaRuletaRusa vI=new VentanaRuletaRusa(cont, elusuario);
-			vI.setVisible(true);
-			this.dispose();
-		}
-		
+	
 		if (e.getSource()==borrar) {
 			
 			int respuesta =JOptionPane.showConfirmDialog(null,  "¿Estas seguro que quieres realizar esta accion?");

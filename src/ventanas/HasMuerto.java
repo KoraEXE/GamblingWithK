@@ -27,11 +27,9 @@ public class HasMuerto extends JDialog implements ActionListener {
 	private JButton SeguirJugando;
 	private LoginControlador cont;
 	private User elusuario;
-	private JDialog VentanaRuletaRusa;
 
 
-	public HasMuerto(JDialog VentanaRuletaRusa, LoginControlador cont, User elusuario) {
-		this.VentanaRuletaRusa = VentanaRuletaRusa;
+	public HasMuerto( LoginControlador cont, User elusuario) {
 		this.cont = cont;
 		this.elusuario = elusuario;
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/miniIconoV2.png"));
@@ -42,6 +40,7 @@ public class HasMuerto extends JDialog implements ActionListener {
 		contentPanel.setBackground(new Color(0, 0, 0));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setLocation(150, 150);
 
 		miniIcono = new JLabel("");
 		miniIcono.setIcon(new ImageIcon("imagenes/miniIconoV2.png"));
@@ -58,6 +57,7 @@ public class HasMuerto extends JDialog implements ActionListener {
 		SeguirJugando.setIcon(new ImageIcon("imagenes/contiarDespuesDeMorir.png"));
 		SeguirJugando.setBounds(114, 168, 206, 44);
 		contentPanel.add(SeguirJugando);
+		this.SeguirJugando.addActionListener(this);
 
 	}
 
@@ -66,7 +66,7 @@ public class HasMuerto extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource()==SeguirJugando) {
-			//cont.borrarUsuario(elusuario);
+			cont.borrarUsuario(elusuario);
 			VentanaInicial vI=new VentanaInicial(cont);
 			vI.setVisible(true);
 			this.dispose();		

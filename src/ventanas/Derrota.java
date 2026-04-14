@@ -28,14 +28,14 @@ public class Derrota extends JDialog implements ActionListener {
 	private JDialog VentanaBlackJack;
 	private LoginControlador cont;
 	private User elusuario;
-	
+
 
 
 	public Derrota(JDialog VentanaBlackJack, User elusuario) {
-		 super(VentanaBlackJack, "Derrota", true);
-		 this.VentanaBlackJack = VentanaBlackJack;
-		 this.elusuario = elusuario;
-		 
+		super(VentanaBlackJack, "Derrota", true);
+		this.VentanaBlackJack = VentanaBlackJack;
+		this.elusuario = elusuario;
+
 		setAlwaysOnTop(true);
 		setUndecorated(true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/miniIconoV2.png"));
@@ -44,7 +44,7 @@ public class Derrota extends JDialog implements ActionListener {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
+
 
 		miniIcono = new JLabel("");
 		miniIcono.setIcon(new ImageIcon("imagenes/miniIconoV2.png"));
@@ -61,7 +61,7 @@ public class Derrota extends JDialog implements ActionListener {
 		SeguirJugando.setBounds(260, 95, 159, 28);
 		contentPanel.add(SeguirJugando);
 		this.SeguirJugando.addActionListener(this);
-		
+
 		PerderLaRacha = new JButton("");
 		PerderLaRacha.setIcon(new ImageIcon("imagenes/PerderRacha.png"));
 		PerderLaRacha.setBounds(260, 160, 159, 28);
@@ -75,21 +75,39 @@ public class Derrota extends JDialog implements ActionListener {
 
 	}
 
-	
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		//si se pulsa el boton de perder la racha se cierra la ventana y vuelve a la ventana de seleccion de juego
+
 		if(e.getSource()==PerderLaRacha) {
-			VentanaBlackJack.dispose();
-			this.dispose();
-			SelecionJuego sJ=new SelecionJuego(cont, elusuario);
-			sJ.setVisible(true);
+
+			if (elusuario.getBalance() == 0) {
+				VentanaBlackJack.dispose();
+				this.dispose();
+				VentanaRuletaRusa vI=new VentanaRuletaRusa(cont, elusuario);
+				vI.setVisible(true);	
+			} else {
+				VentanaBlackJack.dispose();
+				this.dispose();
+				SelecionJuego sJ=new SelecionJuego(cont, elusuario);
+				sJ.setVisible(true);
+			}
 		}
-		
 		if(e.getSource()==SeguirJugando) {
-			this.dispose();
+
+			if (elusuario.getBalance() == 0) {
+					VentanaBlackJack.dispose();
+					VentanaRuletaRusa vI=new VentanaRuletaRusa(cont, elusuario);
+					vI.setVisible(true);
+					this.dispose();
+			} else {
+				this.dispose();
+			}
+
+
 		}
 
 	}

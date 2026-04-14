@@ -75,6 +75,7 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 	private double totalGanado = 0;	
 
 	public VentanaBlackJack(LoginControlador cont, User elusuario) {
+		cont = new LoginControlador();
 		this.cont = cont;
 		this.elusuario = elusuario;
 		setBounds(100, 100, 450, 300);
@@ -516,7 +517,7 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 			}
 			ComboIcon.setText(String.valueOf(rachaReal));
 		} else if (resultado.equals("PERDER")) {
-
+		
 			//Hacer que obtenga los datos de la base de datos
 
 			totalPerdido = totalPerdido - cantidad ;
@@ -526,6 +527,8 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 			rachaReal = 0;
 			ComboIcon.setText(String.valueOf(racha));
 			ComboIcon.setText(String.valueOf(rachaReal));
+			
+			
 		}
 
 		dineroJugador.setText(String.valueOf(elusuario.getBalance()));
