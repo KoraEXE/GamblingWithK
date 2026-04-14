@@ -76,7 +76,7 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 	private int maxCombo = 0;
 
 	public VentanaBlackJack(LoginControlador cont, User elusuario, Play_On_Table table, Played played) {
-		played = new Played();
+		
 		cont = new LoginControlador();
 		this.table = table;
 		this.played = played;
@@ -456,6 +456,7 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 	}
 	//Centraliza todo lo que pasa cuando acaba una partida en vez de repetir codigo (probad a ver que tal os va)//
 	private void terminarRonda(String resultado) {
+		played = new Played();
 		BotonPedir.setEnabled(false);
 		BotonParar.setEnabled(false);
 		botonJugar.setEnabled(true);

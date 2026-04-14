@@ -139,7 +139,7 @@ public class VentanaEstadisticas extends JFrame implements ActionListener {
 		cont.actualizarDinero(elusuario);
 		texto4.setText(String.valueOf(elusuario.getMaxCombo()));
 		texto5.setText(String.valueOf(elusuario.getVecesJugadas()));
-		texto5.setText(String.valueOf(elusuario.getBalance()));
+		texto6.setText(String.valueOf(elusuario.getBalance()));
 		
 	}
 	
