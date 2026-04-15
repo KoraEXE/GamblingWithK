@@ -31,7 +31,6 @@ public class SelecionJuego extends JDialog implements ActionListener {
 	private JButton stats;
 	private JButton cerrarSesion;
 	private JButton borrar;
-	private JButton pray;
 	private LoginControlador cont;
 	private JLabel nombreJugador;
 	private JLabel dineroJugador;
@@ -111,12 +110,6 @@ public class SelecionJuego extends JDialog implements ActionListener {
 			borrar.setBounds(582, 640, 357, 71);
 			contentPanel.add(borrar);
 			this.borrar.addActionListener(this);
-		}
-		{
-			pray = new JButton("5. PRAY");
-			pray.setBounds(582, 721, 357, 71);
-			contentPanel.add(pray);
-			this.pray.addActionListener(this);
 		}
 		{
 			JLabel lblNewLabel_1 = new JLabel("");
