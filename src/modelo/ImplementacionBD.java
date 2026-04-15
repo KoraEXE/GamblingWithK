@@ -47,7 +47,7 @@ public class ImplementacionBD implements UsuarioDAO{
 	final String sqlNombre = "SELECT USERNAME FROM USERS WHERE DNI = ?";
 	final String SQL = "SELECT * FROM USERS WHERE USERNAME = ? AND PASWORD = ?";
 	final String SQLDNI = "SELECT * FROM USERS WHERE DNI = ?";
-	final String sqlDNI = "SELECT DNI FROM USERS WHERE USERNAME = ? AND PASWORD = ?"; //Para usarlo como ancla del usuario en el resto de ventanas hasta que decida des loggearse
+	final String sqlDNI = "SELECT DNI FROM USERS WHERE USERNAME = ? AND PASWORD = ?"; //Para usarlo como ancla del usuario en el resto de ventanas hasta que decida deslogearse
 	final String sqlObtenerStats = "SELECT TIMES_PLAYED, MAX_COMBO FROM USERS WHERE DNI = ?";
 	final String sqlObtenerHistorial = "SELECT U.TIMES_PLAYED, U.MAX_COMBO, P.GAME_DATE, P.BET, P.RESULT " + "FROM USERS U " + "JOIN PLAYED P ON U.DNI = P.DNI " + "WHERE U.DNI = ?";
 	final String sqlActualizarStats = "UPDATE USERS SET TIMES_PLAYED = ?, MAX_COMBO = ? WHERE DNI = ?";
