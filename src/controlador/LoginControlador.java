@@ -66,4 +66,7 @@ public class LoginControlador {
 		return dao.obtenerHistorial(usuario);
 	}
 	
+	public boolean repetirDNI (User usuario) {
+		return dao.repetirDNI(usuario);
+	}
 }

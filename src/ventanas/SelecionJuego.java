@@ -31,6 +31,7 @@ public class SelecionJuego extends JDialog implements ActionListener {
 	private JButton stats;
 	private JButton cerrarSesion;
 	private JButton borrar;
+	private JButton btnRuleta;
 	private LoginControlador cont;
 	private JLabel nombreJugador;
 	private JLabel dineroJugador;
@@ -54,6 +55,11 @@ public class SelecionJuego extends JDialog implements ActionListener {
 		contentPanel.setLayout(null);
 		this.setSize(1536, 864);
 		this.setLocation(0, 0);
+		
+		btnRuleta = new JButton("5. RULETA");
+		btnRuleta.setBounds(582, 721, 357, 71);
+		contentPanel.add(btnRuleta);
+		this.btnRuleta.addActionListener(this);
 		
 		
 		dineroJugador = new JLabel((String) null);
@@ -157,6 +163,12 @@ public class SelecionJuego extends JDialog implements ActionListener {
 			this.dispose();
 		}
 		
+		if (e.getSource()==btnRuleta) {
+			VentanaRuletaRusa vI=new VentanaRuletaRusa(cont, elusuario, table, played);
+			vI.setVisible(true);
+			this.dispose();
+		}
+		
 	
 		if (e.getSource()==borrar) {
 			
@@ -184,6 +196,5 @@ public class SelecionJuego extends JDialog implements ActionListener {
         }
         table.setId_table(resultado.toUpperCase());
 	}
-	
 }
 

@@ -298,7 +298,7 @@ public class VentanaRuletaRusa extends JFrame implements ActionListener {
 	
 	private void accion2() {
 		this.dispose();	
-		elusuario.setBalance(100);
+		elusuario.setBalance(elusuario.getBalance()+100);
 		cont.actualizarDinero(elusuario);
 		JOptionPane.showMessageDialog(null, "Mira tu dinero");
 		

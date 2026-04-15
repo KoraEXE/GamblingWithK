@@ -115,7 +115,7 @@ public class VentanaLogin extends JDialog implements ActionListener{
 		TextBalance.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		TextBalance.setBounds(510, 430, 138, 40);
 		contentPane.add(TextBalance);
-		
+
 		comboBox = new JComboBox();
 		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"-- Select Import --","100","200","300","400","500","600","700","800","900","1000"}));
@@ -149,12 +149,12 @@ public class VentanaLogin extends JDialog implements ActionListener{
 		campoFechaNacimiento.setColumns(10);
 		campoFechaNacimiento.setBounds(658, 388, 206, 35);
 		contentPane.add(campoFechaNacimiento);
-		
+
 		btnRegresar = new JButton("Go Back");
 		btnRegresar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnRegresar.setBounds(640, 536, 241, 35);
 		contentPane.add(btnRegresar);
-		
+
 		btnLogin.addActionListener(this);
 		btnRegresar.addActionListener(this);
 
@@ -164,17 +164,17 @@ public class VentanaLogin extends JDialog implements ActionListener{
 			TextRespuesta.setText("");
 		}
 	}
-	
-	 public void comprobarMayorEdad(LocalDate fechaNacimiento) throws MenorDeEdadException {
 
-	        LocalDate hoy = LocalDate.now();
+	public void comprobarMayorEdad(LocalDate fechaNacimiento) throws MenorDeEdadException {
 
-	        LocalDate fechaMas18 = fechaNacimiento.plusYears(18);
+		LocalDate hoy = LocalDate.now();
 
-	        if (fechaMas18.isAfter(hoy)) {
-	            throw new MenorDeEdadException("El usuario es menor de edad");
-	        }
-	    }
+		LocalDate fechaMas18 = fechaNacimiento.plusYears(18);
+
+		if (fechaMas18.isAfter(hoy)) {
+			throw new MenorDeEdadException("El usuario es menor de edad");
+		}
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -190,72 +190,81 @@ public class VentanaLogin extends JDialog implements ActionListener{
 		}
 
 		if (e.getSource() == btnLogin) {
-
-			if (campoDNI.equals("") || campoUsuario.equals("") || comboBox.getSelectedIndex() == 0  || campoContrasena.equals("") || campoFechaNacimiento.equals("")) {
-				TextRespuesta.setText("Rellena todos los campos");
-			} else if (campoDNI.getText().matches("^[0-9]{8}[A-Z]$") || campoDNI.getText().matches("^[0-9]{8}[a-z]$")) {
-				LocalDate fechas;
-				String fecha = campoFechaNacimiento.getText();
-
-				DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-				try {
-					fechas = LocalDate.parse(fecha, formato);
-
-		            comprobarMayorEdad(fechas);
-
-		            JOptionPane.showMessageDialog(null, "Usuario válido, es mayor de edad");
-
-		        } catch (DateTimeParseException ex) {
-		            JOptionPane.showMessageDialog(null, "Formato incorrecto (dd/MM/yyyy)");
-
-		        } catch (MenorDeEdadException ex) {
-		            JOptionPane.showMessageDialog(null, ex.getMessage());
-		        }
+			
+			elusuario.setDni(campoDNI.getText());
+			
+			if (cont.repetirDNI(elusuario)) {
+				JOptionPane.showMessageDialog(null, "Usuario con ese DNI existente");
 				
-				fechas = LocalDate.parse(fecha, formato);
-				int cantidad = 0;
-				
-				if (comboBox.getSelectedIndex() == 1) {
-					cantidad = 100;
-				} else if (comboBox.getSelectedIndex() == 2) {
-					cantidad = 200;
-				} else if (comboBox.getSelectedIndex() == 3) {
-					cantidad = 300;
-				} else if (comboBox.getSelectedIndex() == 4) {
-					cantidad = 400;
-				} else if (comboBox.getSelectedIndex() == 5) {
-					cantidad = 500;
-				} else if (comboBox.getSelectedIndex() == 6) {
-					cantidad = 600;
-				} else if (comboBox.getSelectedIndex() == 7) {
-					cantidad = 700;
-				} else if (comboBox.getSelectedIndex() == 8) {
-					cantidad = 800;
-				} else if (comboBox.getSelectedIndex() == 9) {
-					cantidad = 900;
-				} else if (comboBox.getSelectedIndex() == 10) {
-					cantidad = 1000;
-				}
-				
-				elusuario.setDni(campoDNI.getText().toUpperCase());
-				elusuario.setName(campoUsuario.getText());
-				elusuario.setPassword(String.valueOf(campoContrasena.getPassword()));
-				elusuario.setBalance(cantidad = 1000);
-				elusuario.setDate_of_birth(fechas);
-				
-				cont.insertarUsuario(elusuario);
-				TextRespuesta.setText("Datos correctos");
-
-				VentanaInicial vl=new VentanaInicial(cont);
-				vl.setVisible(true);
-				this.dispose();
-				// aquí llamar al controlador		    
 			} else {
-				 JOptionPane.showMessageDialog(null, "Formato incorrecto Ejem: (0000000A) ");
+
+				if (campoDNI.equals("") || campoUsuario.equals("") || comboBox.getSelectedIndex() == 0  || campoContrasena.equals("") || campoFechaNacimiento.equals("")) {
+					JOptionPane.showMessageDialog(null, "Rellena todos los campos");
+				} else if (campoDNI.getText().matches("^[0-9]{8}[A-Z]$") || campoDNI.getText().matches("^[0-9]{8}[a-z]$")) {
+
+					LocalDate fechas;
+					String fecha = campoFechaNacimiento.getText();
+
+					DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+					try {
+						fechas = LocalDate.parse(fecha, formato);
+
+						comprobarMayorEdad(fechas);
+
+						JOptionPane.showMessageDialog(null, "Usuario válido, es mayor de edad");
+
+					} catch (DateTimeParseException ex) {
+						JOptionPane.showMessageDialog(null, "Formato incorrecto (dd/MM/yyyy)");
+
+					} catch (MenorDeEdadException ex) {
+						JOptionPane.showMessageDialog(null, ex.getMessage());
+					}
+
+					fechas = LocalDate.parse(fecha, formato);
+					int cantidad = 0;
+
+					if (comboBox.getSelectedIndex() == 1) {
+						cantidad = 100;
+					} else if (comboBox.getSelectedIndex() == 2) {
+						cantidad = 200;
+					} else if (comboBox.getSelectedIndex() == 3) {
+						cantidad = 300;
+					} else if (comboBox.getSelectedIndex() == 4) {
+						cantidad = 400;
+					} else if (comboBox.getSelectedIndex() == 5) {
+						cantidad = 500;
+					} else if (comboBox.getSelectedIndex() == 6) {
+						cantidad = 600;
+					} else if (comboBox.getSelectedIndex() == 7) {
+						cantidad = 700;
+					} else if (comboBox.getSelectedIndex() == 8) {
+						cantidad = 800;
+					} else if (comboBox.getSelectedIndex() == 9) {
+						cantidad = 900;
+					} else if (comboBox.getSelectedIndex() == 10) {
+						cantidad = 1000;
+					}
+
+					elusuario.setDni(campoDNI.getText().toUpperCase());
+					elusuario.setName(campoUsuario.getText());
+					elusuario.setPassword(String.valueOf(campoContrasena.getPassword()));
+					elusuario.setBalance(cantidad = 1000);
+					elusuario.setDate_of_birth(fechas);
+
+					cont.insertarUsuario(elusuario);
+					TextRespuesta.setText("Datos correctos");
+
+					VentanaInicial vl=new VentanaInicial(cont);
+					vl.setVisible(true);
+					this.dispose();
+					// aquí llamar al controlador		    
+				} else {
+					JOptionPane.showMessageDialog(null, "Formato incorrecto Ejem: (0000000A) ");
+				}
 			}
 		}
-		
+
 
 		if (e.getSource() == mostrarContrasena) {
 			boolean mostrar = mostrarContrasena.isSelected();
@@ -263,7 +272,7 @@ public class VentanaLogin extends JDialog implements ActionListener{
 			campoContrasenaVisible.setVisible(mostrar);
 			campoContrasena.setVisible(!mostrar);
 		}
-		
+
 		if (e.getSource() == btnRegresar) {
 			VentanaInicial vl=new VentanaInicial(cont);
 			vl.setVisible(true);
