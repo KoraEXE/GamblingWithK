@@ -188,7 +188,6 @@ public class VentanaLogin extends JDialog implements ActionListener{
 				campoContrasena.setEchoChar('●'); 
 			}
 		}
-
 		if (e.getSource() == btnLogin) {
 			
 			elusuario.setDni(campoDNI.getText());

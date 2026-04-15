@@ -253,8 +253,6 @@ public class VentanaRuletaRusa extends JFrame implements ActionListener {
 
 		if(e.getSource()==btnRevolver) {
 			int numeroR = (int)(Math.random() * 6) + 1;
-			System.out.println(numeroR);
-			System.out.println(respuesta);
 
 			if (numeroR == respuesta) {
 
