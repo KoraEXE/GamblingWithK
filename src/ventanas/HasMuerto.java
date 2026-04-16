@@ -26,7 +26,6 @@ public class HasMuerto extends JDialog implements ActionListener {
 	private LoginControlador cont;
 	private User elusuario;
 
-
 	public HasMuerto( LoginControlador cont, User elusuario) {
 		this.cont = cont;
 		this.elusuario = elusuario;
@@ -56,18 +55,14 @@ public class HasMuerto extends JDialog implements ActionListener {
 		SeguirJugando.setBounds(114, 168, 206, 44);
 		contentPanel.add(SeguirJugando);
 		this.SeguirJugando.addActionListener(this);
-
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		
+	public void actionPerformed(ActionEvent e) {		
+		//Se borra el usuario
 		if(e.getSource()==SeguirJugando) {
 			cont.borrarUsuario(elusuario);
 			this.dispose();		
 		}
-		
-		
-
 	}
 }

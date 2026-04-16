@@ -38,7 +38,6 @@ public class VentanaEstadisticas extends JFrame implements ActionListener {
 	private JLabel texto5;
 	private JLabel texto6;
 
-
 	public VentanaEstadisticas(LoginControlador cont, User elusuario, Play_On_Table table, Played played) {
 
 		cont = new LoginControlador();
@@ -129,11 +128,8 @@ public class VentanaEstadisticas extends JFrame implements ActionListener {
 		cont.actualizarDinero(elusuario);
 		texto4.setText(String.valueOf(elusuario.getMaxCombo()));
 		texto5.setText(String.valueOf(elusuario.getVecesJugadas()));
-		texto6.setText(String.valueOf(elusuario.getBalance()));
-		
+		texto6.setText(String.valueOf(elusuario.getBalance()));	
 	}
-	
-	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -153,14 +149,10 @@ public class VentanaEstadisticas extends JFrame implements ActionListener {
 
 		table_1.setModel(modelo);
 
-
-		
-
 		if(e.getSource()==btnVolver) {
 			this.dispose();
 			SelecionJuego sJ=new SelecionJuego(cont, elusuario, table, played);
 			sJ.setVisible(true);
 		}
-
 	}
 }

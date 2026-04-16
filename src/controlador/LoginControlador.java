@@ -27,10 +27,6 @@ public class LoginControlador {
 		return dao.obtenerDNI(usuario);
 	}
 	
-	public String obtenerNombre(User usuario) {
-		return dao.obtenerNombre(usuario);
-	}
-	
 	public int obtenerDinero (User usuario) {
 		return dao.obtenerDinero(usuario);
 	}

@@ -48,7 +48,6 @@ public class VentanaRuletaRusa extends JFrame implements ActionListener {
 	private Play_On_Table table;
 	private Played played;
 
-
 	public VentanaRuletaRusa(LoginControlador cont, User elusuario, Play_On_Table table, Played played) {
 		this.table = table;
 		this.played = played;
@@ -162,13 +161,11 @@ public class VentanaRuletaRusa extends JFrame implements ActionListener {
 		this.btnRevolver.addActionListener(this);
 		cont.obtenerStadisticas(elusuario);
 
-
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-
 
 		if(e.getSource()==btnBala1) {
 			btnBala1.setEnabled(false);
@@ -249,7 +246,6 @@ public class VentanaRuletaRusa extends JFrame implements ActionListener {
 			
 		}
 		
-
 		if(e.getSource()==btnRevolver) {
 			int numeroR = (int)(Math.random() * 6) + 1;
 
@@ -262,8 +258,7 @@ public class VentanaRuletaRusa extends JFrame implements ActionListener {
 						btnRevolver.setIcon(new ImageIcon("imagenes/revolverLast.jpg"));
 						HasMuerto sJ=new HasMuerto(cont, elusuario);
 						sJ.setVisible(true);
-						accion();
-						
+						accion();	
 					}
 				});
 				
@@ -283,9 +278,7 @@ public class VentanaRuletaRusa extends JFrame implements ActionListener {
 				});	
 				timer.setRepeats(false);
 				timer.start();
-				
-			}
-			
+			}	
 		}	
 	}
 	
@@ -298,6 +291,5 @@ public class VentanaRuletaRusa extends JFrame implements ActionListener {
 		elusuario.setBalance(elusuario.getBalance()+100);
 		cont.actualizarDinero(elusuario);
 		JOptionPane.showMessageDialog(null, "Mira tu dinero");
-		
 	}
 }

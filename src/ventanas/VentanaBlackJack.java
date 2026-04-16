@@ -70,7 +70,7 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 	private boolean n21s = false;
 
 	//Stats para mostrar
-	private int vecesJugadas = 0; //realizado
+	private int vecesJugadas = 0;
 	private int maxCombo = 0;
 	private JLabel fondoo;
 	private JLabel textNombreCrupier;
@@ -289,11 +289,6 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		String sumaF = "0"; //suma final
 		String sumaFC = "0";//suma final crupier
 		int contadordecartas = 0;
-
-
-		//Para las stats
-
-
 		int numCartasArray =0;
 		File f = new File("baraja.dat");
 		ArrayList<Carta> totalBaraja = new ArrayList<>();
@@ -306,13 +301,8 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		if (e.getSource() == botonJugar) {
 			
 			obtnerDatosStats();
-
-			//Hacer que obtenga los datos de la base de datos
-
 			vecesJugadas ++;
-
-			//añadir a la base de datos
-
+			
 			//resetear las cartas
 			Crupier1.setIcon(new ImageIcon("imagenes/trasera.jpg"));
 			Carta1.setIcon(new ImageIcon("imagenes/trasera.jpg"));
@@ -387,15 +377,10 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 						Crupier2.setIcon(totalBaraja.get(bkj.randomCarta).getImagen()); //Aun no es visible 
 					}
 
-
-
 				} while (contadorCartas != 4);
 
 				NoMostrar1.setVisible(false);
 				contadordecartas = contadorCartas;
-
-				//consultar todas las cartas de fich f baraja.dat
-
 			}
 		}
 
@@ -404,7 +389,6 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 			bkj.apostar(f, carta, totalBaraja);
 			sumaF = SumaTotal.getText();
 			sumaT = Integer.parseInt(sumaF);
-
 
 			sumaT = bkj.traductorDeCartas(totalBaraja, bkj, sumaT);
 			sumaF = Integer.toString(sumaT);
@@ -466,7 +450,7 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 			}
 		}
 	}
-	//Centraliza todo lo que pasa cuando acaba una partida en vez de repetir codigo (probad a ver que tal os va)//
+	//Centraliza todo lo que pasa cuando acaba una partida en vez de repetir codigo (probad a ver que tal os va)
 	private void terminarRonda(String resultado) {
 		played = new Played();
 		BotonPedir.setEnabled(false);
@@ -491,7 +475,6 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 			derrota.setLocation(350, 400); //posición
 			derrota.setVisible(true);
 
-
 		} else {
 			TextoInfo.setText("¡Empate!");
 		}
@@ -499,10 +482,9 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 
 	private void gestionRYD(String resultado) { 
 
-
 		//Gestion rachas y dinero
-		//Aumenta 0,10 el multiplicador de dinero por cada victoria hasta un maximo de 0,1
-		//Si ha sido blackjack aumentara un 0,25 en vez de 0,10
+		//Aumenta 0,20 el multiplicador de dinero por cada victoria hasta un maximo de 0,1
+		//Si ha sido blackjack aumentara un 0,50 en vez de 0,20
 		//Despues de 5 ganadas no se sumaran nada mas
 		
 		if (resultado.equals("GANAR")) {
@@ -561,14 +543,14 @@ public class VentanaBlackJack extends JDialog implements ActionListener {
 		cont.actualizarDinero(elusuario);
 	}
 
-	private void obtnerDatosStats() { 
+	private void obtnerDatosStats() { //Obetiene las estadisticas de la base de datos
 		cont.obtenerStadisticas(elusuario);
 		vecesJugadas = elusuario.getVecesJugadas();
 		maxCombo = elusuario.getMaxCombo();
 		
 	}
 	
-	private void actualizarDatosStats() {
+	private void actualizarDatosStats() { //Aqui los actualiza
 		elusuario.setVecesJugadas(vecesJugadas);
 		elusuario.setMaxCombo(maxCombo);
 		cont.actualuizarStadisticas(elusuario);

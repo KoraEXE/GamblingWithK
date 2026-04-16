@@ -33,8 +33,8 @@ public class Derrota extends JDialog implements ActionListener {
 	private Played played;
 
 	public Derrota(JDialog VentanaBlackJack, User elusuario, Play_On_Table table, Played played) {
+		//Recibe si es "Derrota" por parte de la venta de BlackJack
 		super(VentanaBlackJack, "Derrota", true);
-		
 		this.VentanaBlackJack = VentanaBlackJack;
 		this.elusuario = elusuario;
 		this.table = table;
@@ -46,7 +46,6 @@ public class Derrota extends JDialog implements ActionListener {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-
 
 		miniIcono = new JLabel("");
 		miniIcono.setIcon(new ImageIcon("imagenes/miniIconoV2.png"));
@@ -74,16 +73,12 @@ public class Derrota extends JDialog implements ActionListener {
 		Fondo.setIcon(new ImageIcon("imagenes/FondoDeVictoria.png"));
 		Fondo.setBounds(0, 0, 436, 263);
 		contentPanel.add(Fondo);
-
 	}
-
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		//si se pulsa el boton de perder la racha se cierra la ventana y vuelve a la ventana de seleccion de juego
-
 		if(e.getSource()==PerderLaRacha) {
 
 			if (elusuario.getBalance() == 0) {
@@ -98,19 +93,18 @@ public class Derrota extends JDialog implements ActionListener {
 				sJ.setVisible(true);
 			}
 		}
+		//si le da a seguir, cierra la ventana y se sigue jugando
 		if(e.getSource()==SeguirJugando) {
 
 			if (elusuario.getBalance() == 0) {
-					VentanaBlackJack.dispose();
-					VentanaRuletaRusa vI=new VentanaRuletaRusa(cont, elusuario, table, played);
-					vI.setVisible(true);
-					this.dispose();
+				//en caso de que el dinero sea 0 tendra que pasar por la ruleta
+				VentanaBlackJack.dispose();
+				VentanaRuletaRusa vI=new VentanaRuletaRusa(cont, elusuario, table, played);
+				vI.setVisible(true);
+				this.dispose();
 			} else {
 				this.dispose();
 			}
-
-
 		}
-
 	}
 }

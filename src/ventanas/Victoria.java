@@ -34,6 +34,7 @@ public class Victoria extends JDialog implements ActionListener {
 	private Played played;
 
 	public Victoria(JDialog VentanaBlackJack,User elusuario, Play_On_Table table, Played played) {
+		//Recibe si es "Derrota" por parte de la venta de BlackJack
 		super(VentanaBlackJack, "Victoria", true);
 		this.VentanaBlackJack = VentanaBlackJack;
 		this.elusuario = elusuario;
@@ -87,7 +88,7 @@ public class Victoria extends JDialog implements ActionListener {
 			SelecionJuego sJ=new SelecionJuego(cont, elusuario, table, played);
 			sJ.setVisible(true);
 		}
-
+		//si le da a seguir, cierra la ventana y se sigue jugando
 		if(e.getSource()==SeguirJugando) {
 			this.dispose();
 		}

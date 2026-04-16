@@ -167,9 +167,8 @@ public class VentanaLogin extends JDialog implements ActionListener{
 
 	public void comprobarMayorEdad(LocalDate fechaNacimiento) throws MenorDeEdadException {
 
-		LocalDate hoy = LocalDate.now();
-
-		LocalDate fechaMas18 = fechaNacimiento.plusYears(18);
+		LocalDate hoy = LocalDate.now(); //fecha de de hoy
+		LocalDate fechaMas18 = fechaNacimiento.plusYears(18); //compruba para que sea mayor de edad
 
 		if (fechaMas18.isAfter(hoy)) {
 			throw new MenorDeEdadException("El usuario es menor de edad");
@@ -181,7 +180,6 @@ public class VentanaLogin extends JDialog implements ActionListener{
 
 		if (e.getSource() == mostrarContrasena) {
 			if (mostrarContrasena.isSelected()) {
-				// (char)0 significa "sin máscara", muestra el texto real
 				campoContrasena.setEchoChar((char) 0); 
 			} else {
 				// Restablece el punto negro o asterisco
@@ -199,23 +197,18 @@ public class VentanaLogin extends JDialog implements ActionListener{
 
 				if (campoDNI.equals("") || campoUsuario.equals("") || comboBox.getSelectedIndex() == 0  || campoContrasena.equals("") || campoFechaNacimiento.equals("")) {
 					JOptionPane.showMessageDialog(null, "Rellena todos los campos");
-				} else if (campoDNI.getText().matches("^[0-9]{8}[A-Z]$") || campoDNI.getText().matches("^[0-9]{8}[a-z]$")) {
+				} else if (campoDNI.getText().toUpperCase().matches("^[0-9]{8}[A-Z]$")) { //Para el dni que sean 8 numeros 1 letra
 
 					LocalDate fechas;
 					String fecha = campoFechaNacimiento.getText();
-
 					DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 					try {
 						fechas = LocalDate.parse(fecha, formato);
-
 						comprobarMayorEdad(fechas);
-
 						JOptionPane.showMessageDialog(null, "Usuario válido, es mayor de edad");
-
 					} catch (DateTimeParseException ex) {
 						JOptionPane.showMessageDialog(null, "Formato incorrecto (dd/MM/yyyy)");
-
 					} catch (MenorDeEdadException ex) {
 						JOptionPane.showMessageDialog(null, ex.getMessage());
 					}
@@ -248,9 +241,8 @@ public class VentanaLogin extends JDialog implements ActionListener{
 					elusuario.setDni(campoDNI.getText().toUpperCase());
 					elusuario.setName(campoUsuario.getText());
 					elusuario.setPassword(String.valueOf(campoContrasena.getPassword()));
-					elusuario.setBalance(cantidad = 1000);
+					elusuario.setBalance(cantidad);
 					elusuario.setDate_of_birth(fechas);
-
 					cont.insertarUsuario(elusuario);
 					TextRespuesta.setText("Datos correctos");
 
@@ -262,14 +254,6 @@ public class VentanaLogin extends JDialog implements ActionListener{
 					JOptionPane.showMessageDialog(null, "Formato incorrecto Ejem: (0000000A) ");
 				}
 			}
-		}
-
-
-		if (e.getSource() == mostrarContrasena) {
-			boolean mostrar = mostrarContrasena.isSelected();
-			campoContrasenaVisible.setText(campoContrasena.getText());
-			campoContrasenaVisible.setVisible(mostrar);
-			campoContrasena.setVisible(!mostrar);
 		}
 
 		if (e.getSource() == btnRegresar) {

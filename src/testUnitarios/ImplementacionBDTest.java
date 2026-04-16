@@ -8,6 +8,8 @@ import static org.junit.Assert.assertThrows;
 import java.time.LocalDate;
 
 import org.junit.Test;
+
+import controlador.LoginControlador;
 import modelo.*;
 
 public class ImplementacionBDTest {
@@ -28,6 +30,7 @@ public class ImplementacionBDTest {
 	@Test
 	public void testComprobarUsuarioNoExiste_assertFalse() {
 		User u = new User();
+		u.setDni("no_existe");
 		u.setName("no_existe");
 		u.setPassword("1234");
 
@@ -35,15 +38,21 @@ public class ImplementacionBDTest {
 
 		assertFalse(resultado);
 	}
+	
 	@Test
-	public void testObtenerNombreUsuarioNoExiste_assertNull() {
-		User u = new User();
-		u.setDni("00000000X");
+    public void testObtenerEstadisticasUsuarioNoExiste() {
 
-		String nombre = bd.obtenerNombre(u);
+        LoginControlador cont = new LoginControlador();
+        User usuario = new User();
 
-		assertNull(nombre);
-	}
+        usuario.setDni("99999999X"); // DNI que no existe
+
+        cont.obtenerStadisticas(usuario);
+
+        assertNull(usuario.getVecesJugadas());
+        assertNull(usuario.getMaxCombo());
+    }
+	
 	@Test
 	public void testNullUser_assertThrows() {
 
@@ -53,6 +62,7 @@ public class ImplementacionBDTest {
 			bd.comprobarUsuario(null);
 		});
 	}
+	
 	@Test
 	public void testInsertarUsuario_assertEquals() {
 
@@ -67,7 +77,7 @@ public class ImplementacionBDTest {
 
 		assertEquals(true, resultado);
 	}
-}
+	
 @Test
 public void testRepetirDNINoExiste_assertFalse() {
 

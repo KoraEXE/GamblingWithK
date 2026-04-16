@@ -39,7 +39,7 @@ public class SelecionJuego extends JDialog implements ActionListener {
 	private Played played;
 
 	public SelecionJuego(LoginControlador controlador, User elusuario, Play_On_Table table, Played played) {
-
+		
 		cont = new LoginControlador();
 		this.played = played;
 		this.table=table;
@@ -57,7 +57,6 @@ public class SelecionJuego extends JDialog implements ActionListener {
 		btnRuleta.setBounds(81, 518, 271, 61);
 		contentPanel.add(btnRuleta);
 		this.btnRuleta.addActionListener(this);
-
 
 		dineroJugador = new JLabel((String) null);
 		dineroJugador.setForeground(new Color(0, 255, 64));
@@ -116,14 +115,10 @@ public class SelecionJuego extends JDialog implements ActionListener {
 			}
 			this.borrar.addActionListener(this);
 		}
-
-
-
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-
 
 		if(e.getSource()==cerrarSesion) {
 			VentanaInicial vI=new VentanaInicial(cont);
@@ -153,11 +148,12 @@ public class SelecionJuego extends JDialog implements ActionListener {
 
 
 		if (e.getSource()==borrar) {
-
+			//Le da la oportunidad para retractarse de la elecion de borrar el usuario
 			int respuesta =JOptionPane.showConfirmDialog(null,  "¿Estas seguro que quieres realizar esta accion?");
-			if (respuesta == 2 ) { //no
-
-			} else {
+			if (respuesta == 2 ) {
+				//no
+			} else if (respuesta == 1) {
+				//si
 				cont.borrarUsuario(elusuario);
 				VentanaInicial vI=new VentanaInicial(cont);
 				vI.setVisible(true);
@@ -167,15 +163,19 @@ public class SelecionJuego extends JDialog implements ActionListener {
 	}
 
 	public void generadorDeCodigo() {
-		String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-		String resultado = "";
+		String numeros = "0123456789"; //codigo aleatorio numeros
+		String resultadoN = "";	
 		Random random = new Random();
-
-		for (int i = 0; i < 10; i++) {
-			int indice = random.nextInt(caracteres.length());
-			resultado += caracteres.charAt(indice);
+		
+		char letra = (char) ('A' + (int)(Math.random() * 26));
+		
+		for (int i = 0; i < 4; i++) {
+			int indice2 = random.nextInt(numeros.length());
+			resultadoN += numeros.charAt(indice2);
 		}
-		table.setId_table(resultado.toUpperCase());
+		table.setId_table("MESA" + resultadoN + letra);
+		
+		//MESA45678A
 	}
 }
 

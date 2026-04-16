@@ -50,6 +50,7 @@ public class VentanaInicial extends JFrame implements ActionListener{
 	private Played played = new Played();
 	private JLabel lblNewLabel_1;
 	private JButton btnAdmin;
+	private JTextField campoDNI;
 
 	public VentanaInicial(LoginControlador cont) {
 		
@@ -80,13 +81,13 @@ public class VentanaInicial extends JFrame implements ActionListener{
 		contentPane.add(lblNewLabel);
 
 		btnPlay = new JButton("Play");
-		btnPlay.setBounds(1045, 557, 210, 60);
+		btnPlay.setBounds(1044, 555, 210, 60);
 		btnPlay.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		contentPane.add(btnPlay);
 		btnPlay.addActionListener(this);
 
 		btnRegister = new JButton("Register");
-		btnRegister.setBounds(1045, 487, 210, 60);
+		btnRegister.setBounds(1044, 625, 210, 60);
 		btnRegister.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnRegister.addActionListener(this);
 		contentPane.add(btnRegister);
@@ -101,36 +102,36 @@ public class VentanaInicial extends JFrame implements ActionListener{
 		JLabel TextIniciarSesion = new JLabel("Iniciar Sesión:");
 		TextIniciarSesion.setForeground(new Color(255, 255, 255));
 		TextIniciarSesion.setHorizontalAlignment(SwingConstants.CENTER);
-		TextIniciarSesion.setBounds(1015, 425, 261, 52);
+		TextIniciarSesion.setBounds(1015, 492, 261, 52);
 		TextIniciarSesion.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		contentPane.add(TextIniciarSesion);
 
 		TextNombre = new JLabel("Nombre");
 		TextNombre.setForeground(new Color(255, 255, 255));
-		TextNombre.setBounds(847, 264, 158, 52);
+		TextNombre.setBounds(847, 341, 158, 52);
 		TextNombre.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		contentPane.add(TextNombre);
 
 		TextContraseña = new JLabel("Contraseña");
 		TextContraseña.setForeground(new Color(255, 255, 255));
-		TextContraseña.setBounds(847, 341, 158, 52);
+		TextContraseña.setBounds(847, 425, 158, 52);
 		TextContraseña.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		contentPane.add(TextContraseña);
 
 		campoNombre = new JTextField();
-		campoNombre.setBounds(1015, 264, 261, 52);
+		campoNombre.setBounds(1015, 345, 261, 52);
 		campoNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		contentPane.add(campoNombre);
 		campoNombre.setColumns(10);
 
 		campoContrasena = new JPasswordField();
-		campoContrasena.setBounds(1015, 341, 261, 52);
+		campoContrasena.setBounds(1015, 429, 261, 52);
 		contentPane.add(campoContrasena);
 
 		mostrarContrasena = new JCheckBox("See Password");
 		mostrarContrasena.setBackground(new Color(240, 240, 240));
 		mostrarContrasena.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		mostrarContrasena.setBounds(1282, 343, 234, 48);
+		mostrarContrasena.setBounds(1282, 427, 234, 48);
 		mostrarContrasena.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(mostrarContrasena);
 		mostrarContrasena.addActionListener(this);
@@ -153,9 +154,21 @@ public class VentanaInicial extends JFrame implements ActionListener{
 		nube.setBounds(617, 72, 298, 99);
 		contentPane.add(nube);
 		
+		JLabel TextDNI = new JLabel("DNI");
+		TextDNI.setForeground(Color.WHITE);
+		TextDNI.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		TextDNI.setBounds(847, 278, 158, 52);
+		contentPane.add(TextDNI);
+		
+		campoDNI = new JTextField();
+		campoDNI.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		campoDNI.setColumns(10);
+		campoDNI.setBounds(1015, 278, 261, 52);
+		contentPane.add(campoDNI);
+		
 		lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon("imagenes/main page.jpg"));
-		lblNewLabel_1.setBounds(0, 0, 1540, 845);
+		lblNewLabel_1.setBounds(0, 0, 1924, 1062);
 		contentPane.add(lblNewLabel_1);
 		nube.setVisible(false);
 
@@ -209,27 +222,22 @@ public class VentanaInicial extends JFrame implements ActionListener{
 		}
 
 		if (e.getSource() == btnPlay) {
-			String dni;
+			String dni = campoDNI.getText();;
 			String usuario = campoNombre.getText();
 			char[] password = null;
 			if (campoContrasena.isVisible()) {
 				password = campoContrasena.getPassword();
 			}
-			if (usuario.equals("") || password.equals("")) {
+			if (usuario.equals("") || password.equals("") || dni.equals("")) {
 				nube.setVisible(true);
 				Hablar.setText("Rellena todos los campos");
 			} else {
-
-			
 				password = campoContrasena.getPassword();
+				elusuario.setDni(dni);
 				elusuario.setName(usuario);
 				elusuario.setPassword(String.valueOf(password));
 
-
-				if (cont.comprobarUsuario(elusuario)) {
-					
-					dni = cont.obtenerDNI(elusuario); //Obtiene el DNI del usuario para futuros usos
-					elusuario.setDni(dni);					
+				if (cont.comprobarUsuario(elusuario)) {					
 					elusuario.setBalance(cont.obtenerDinero(elusuario));
 					Hablar.setText("Datos correctos");
 					SelecionJuego v2=new SelecionJuego(cont, elusuario, table, played);		
@@ -243,4 +251,3 @@ public class VentanaInicial extends JFrame implements ActionListener{
 		}
 	}
 }
-

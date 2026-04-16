@@ -44,7 +44,7 @@ public class ImplementacionBD implements UsuarioDAO{
 	final String sqlInsert = "INSERT INTO USERS VALUES (?,?,?,?,?,?,?)";
 	final String sqlDinero = "SELECT BALANCE FROM USERS USERNAME = ? AND PASWORD = ?";
 	final String sqlNombre = "SELECT USERNAME FROM USERS WHERE DNI = ?";
-	final String SQL = "SELECT * FROM USERS WHERE USERNAME = ? AND PASWORD = ?";
+	final String SQL = "SELECT * FROM USERS WHERE DNI = ? AND USERNAME = ? AND PASWORD = ?";
 	final String SQLDNI = "SELECT * FROM USERS WHERE DNI = ?";
 	final String sqlDNI = "SELECT DNI FROM USERS WHERE USERNAME = ? AND PASWORD = ?"; //Para usarlo como ancla del usuario en el resto de ventanas hasta que decida deslogearse
 	final String sqlObtenerStats = "SELECT TIMES_PLAYED, MAX_COMBO FROM USERS WHERE DNI = ?";
@@ -140,8 +140,9 @@ public class ImplementacionBD implements UsuarioDAO{
 		this.openConnection();
 		try {
 			stmt = con.prepareStatement(SQL);
-			stmt.setString(1, usuario.getName());
-			stmt.setString(2, usuario.getPassword());
+			stmt.setString(1, usuario.getDni());
+			stmt.setString(2, usuario.getName());
+			stmt.setString(3, usuario.getPassword());
 			ResultSet resultado = stmt.executeQuery();
 			// Si hay un resultado, el usuario existe
 			if (resultado.next()) {
@@ -214,32 +215,14 @@ public class ImplementacionBD implements UsuarioDAO{
 		return existe;
 	}
 
-	public String obtenerNombre(User usuario) {
-		String nombre = "";
-		this.openConnection();
-		try {
-			stmt = con.prepareStatement(SQL);
-			stmt.setString(1, usuario.getDni());
-			ResultSet resultado = stmt.executeQuery();
-			if (resultado.next()) {
-				nombre = resultado.getString("nombre"); 
-			}
-			resultado.close();
-			stmt.close();
-			con.close();
-		} catch (SQLException e) {
-			System.out.println("Error al verificar credenciales: " + e.getMessage());
-		}
-		return nombre;
-	}
-
 	public int obtenerDinero(User usuario) {
 		int dinero = 0;
 		this.openConnection();
 		try {
 			stmt = con.prepareStatement(SQL);
-			stmt.setString(1, usuario.getName());
-			stmt.setString(2, usuario.getPassword());
+			stmt.setString(1, usuario.getDni());
+			stmt.setString(2, usuario.getName());
+			stmt.setString(3, usuario.getPassword());
 			ResultSet resultado = stmt.executeQuery();
 			if (resultado.next()) {
 				dinero = resultado.getInt("BALANCE"); 

@@ -52,12 +52,12 @@ public class VentanaAdmin extends JDialog implements ActionListener{
 		this.setLocation(0, 0);
 		contentPane.setLayout(null);
 		contentPane.setLayout(null);
-		
+
 		btnVolver = new JButton("Back");
 		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnVolver.setBounds(1042, 458, 210, 60);
 		contentPane.add(btnVolver);
-		
+
 
 		JLabel lblAdminText = new JLabel("Admin");
 		lblAdminText.setForeground(new Color(255, 255, 255));
@@ -91,14 +91,14 @@ public class VentanaAdmin extends JDialog implements ActionListener{
 		campoID_DEALER.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		contentPane.add(campoID_DEALER);
 		campoID_DEALER.setColumns(10);
-		
+
 		btnAccion = new JButton("Añadir Admin nuevo");
 		btnAccion.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnAccion.setBounds(386, 450, 349, 60);
 		contentPane.add(btnAccion);
 		btnAccion.setVisible(false);
 		btnAccion.addActionListener(this);
-		
+
 		textDealerId = new JLabel("New Dealer ID:");
 		textDealerId.setHorizontalAlignment(SwingConstants.RIGHT);
 		textDealerId.setForeground(Color.WHITE);
@@ -106,15 +106,15 @@ public class VentanaAdmin extends JDialog implements ActionListener{
 		textDealerId.setBounds(149, 231, 230, 52);
 		contentPane.add(textDealerId);
 		textDealerId.setVisible(false);
-		
+
 		campoIdDealer = new JTextField();
 		campoIdDealer.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		campoIdDealer.setColumns(10);
 		campoIdDealer.setBounds(425, 235, 261, 52);
 		contentPane.add(campoIdDealer);
 		campoIdDealer.setVisible(false);
-	
-		
+
+
 		textNombreDealer = new JLabel("New Dealer Name:");
 		textNombreDealer.setHorizontalAlignment(SwingConstants.RIGHT);
 		textNombreDealer.setForeground(Color.WHITE);
@@ -122,22 +122,19 @@ public class VentanaAdmin extends JDialog implements ActionListener{
 		textNombreDealer.setBounds(149, 304, 230, 52);
 		contentPane.add(textNombreDealer);
 		textNombreDealer.setVisible(false);
-		
+
 		campoNombreDealer = new JTextField();
 		campoNombreDealer.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		campoNombreDealer.setColumns(10);
 		campoNombreDealer.setBounds(425, 304, 261, 52);
 		contentPane.add(campoNombreDealer);
 		campoNombreDealer.setVisible(false);
-		
+
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon("imagenes/fondoooo1.png"));
 		lblNewLabel.setBounds(-48, 0, 1636, 845);
 		contentPane.add(lblNewLabel);
-
 	}		
-	
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -154,17 +151,17 @@ public class VentanaAdmin extends JDialog implements ActionListener{
 				JOptionPane.showMessageDialog(null, "ID incorrecto");
 			}
 		}	
-		
+
 		if (e.getSource() == btnVolver) {
 			VentanaInicial vI=new VentanaInicial(cont);
 			vI.setVisible(true);
 			this.dispose();
 		}
-		
+
 		if (e.getSource() == btnAccion) {
 			String id = "";
 			String nombre = "";
-			if (campoIdDealer.getText().matches("^[0-9]{4}[A-Z]{2}") || campoIdDealer.getText().matches("^[0-9]{4}[a-z]{2}") ) {
+			if (campoIdDealer.getText().toUpperCase().matches("^[0-9]{4}[A-Z]{2}")) {
 				id = "DEAL" + campoIdDealer.getText().toUpperCase();
 			} else {
 				JOptionPane.showMessageDialog(null, "EL 'DEAL' se pone automaticamente. Formato correcto 0000AA");
@@ -181,14 +178,14 @@ public class VentanaAdmin extends JDialog implements ActionListener{
 				} else {
 					JOptionPane.showMessageDialog(null, "NO se ha podido introducir correctamente");
 				}
-				
+
 			} else {
 				JOptionPane.showMessageDialog(null, "ID existente");
 			}
 		}	
-		
-		
-		
+
+
+
 	}
 }
 
