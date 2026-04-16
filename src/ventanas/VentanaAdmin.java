@@ -164,16 +164,15 @@ public class VentanaAdmin extends JDialog implements ActionListener{
 		
 		if (e.getSource() == btnAccion) {
 			String id = "";
+			String nombre = "";
 			if (campoIdDealer.getText().matches("^[0-9]{4}[A-Z]{2}")) {
 				id = "DEAL" + campoIdDealer.getText().toUpperCase();
 			}
 			dealer.setID_Dealer(id);
 			if (!cont.obtenerID_DEALER(dealer)) {
-				btnAccion.setVisible(true);
-				campoNombreDealer.setVisible(true);
-				campoIdDealer.setVisible(true);
-				textNombreDealer.setVisible(true);
-				textDealerId.setVisible(true);
+				campoNombreDealer.getText();
+				
+				
 			} else {
 				JOptionPane.showMessageDialog(null, "ID incorrecto");
 			}
