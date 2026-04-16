@@ -86,7 +86,7 @@ public class VentanaInicial extends JFrame implements ActionListener{
 
 		lblimagen = new ImageIcon("imagenes/D.jpg");
 		JLabel lblImagen = new JLabel(new ImageIcon("imagenes/decepcioandoV3.png"));
-		lblImagen.setBounds(-25, 0, 765, 1062);
+		lblImagen.setBounds(387, 0, 765, 1062);
 		lblImagen.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblImagen);
