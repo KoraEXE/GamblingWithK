@@ -87,29 +87,29 @@ public class SelecionJuego extends JDialog implements ActionListener {
 		contentPanel.add(textoNombreJugador);
 		{
 			blackJack = new JButton("1. BLACK JACK");
-			blackJack.setBounds(545, 494, 357, 71);
+			blackJack.setBounds(546, 484, 357, 71);
 			contentPanel.add(blackJack);
 			this.blackJack.addActionListener(this);
 		}
 		{
 			stats = new JButton("2. STATS");
-			stats.setBounds(387, 678, 193, 38);
+			stats.setBounds(386, 614, 193, 38);
 			contentPanel.add(stats);
 			this.stats.addActionListener(this);
 		}
 		{
 			cerrarSesion = new JButton("3. CERRAR SESIÓN");
-			cerrarSesion.setBounds(661, 678, 193, 38);
+			cerrarSesion.setBounds(628, 614, 193, 38);
 			contentPanel.add(cerrarSesion);
 			cerrarSesion.addActionListener(this);
 		}
 		{
 			borrar = new JButton("4. BORRAR");
-			borrar.setBounds(937, 678, 193, 38);
+			borrar.setBounds(923, 614, 193, 38);
 			contentPanel.add(borrar);
 			{
 				JLabel fondoo = new JLabel("");
-				fondoo.setIcon(new ImageIcon("imagenes/select game.jpg"));
+				fondoo.setIcon(new ImageIcon("imagenes/select game67.jpg"));
 				fondoo.setBounds(0, 0, 1522, 827);
 				contentPanel.add(fondoo);
 			}

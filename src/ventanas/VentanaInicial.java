@@ -131,7 +131,7 @@ public class VentanaInicial extends JFrame implements ActionListener{
 		mostrarContrasena = new JCheckBox("See Password");
 		mostrarContrasena.setBackground(new Color(240, 240, 240));
 		mostrarContrasena.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		mostrarContrasena.setBounds(1282, 427, 234, 48);
+		mostrarContrasena.setBounds(1282, 427, 234, 54);
 		mostrarContrasena.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(mostrarContrasena);
 		mostrarContrasena.addActionListener(this);
@@ -167,8 +167,8 @@ public class VentanaInicial extends JFrame implements ActionListener{
 		contentPane.add(campoDNI);
 		
 		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon("imagenes/main page.jpg"));
-		lblNewLabel_1.setBounds(0, 0, 1924, 1062);
+		lblNewLabel_1.setIcon(new ImageIcon("imagenes/maine page67.jpg"));
+		lblNewLabel_1.setBounds(0, 0, 1540, 845);
 		contentPane.add(lblNewLabel_1);
 		nube.setVisible(false);
 
