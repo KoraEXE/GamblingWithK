@@ -1,4 +1,4 @@
-## 🚀 Titulo: GamblingWithKirk 
+## 🚀 Titulo: GamblingWithK
 
 #### 📒 Descripción: 
 
